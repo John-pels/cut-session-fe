@@ -1,0 +1,1 @@
+{"mappings":"AAAA,SAAS,UAAgB;IACvB,QAAQ,GAAG,CAAC;AACd;AAEA","sources":["scripts/app.ts"],"sourcesContent":["function testRun(): void {\n  console.log(\"Hello world!\");\n}\n\ntestRun();\n"],"names":[],"version":3,"file":"index.48baa369.js.map","sourceRoot":"/__parcel_source_root/"}
