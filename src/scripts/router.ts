@@ -26,27 +26,27 @@ const urlRoute = (event: any) => {
 // create an object that maps the url to the template, title, and description
 const urlRoutes: IUrlRoutes = {
   "404": {
-    template: "/src/templates/404.html",
+    template: "/src/pages/404.html",
     title: "404 | " + pageTitle,
     description: "Page not found",
   },
   "/": {
-    template: "/src/templates/index.html",
+    template: "/src/pages/index.html",
     title: "Home | " + pageTitle,
     description: "This is the home page",
   },
   "/dashboard": {
-    template: "/src/templates/dashboard.html",
+    template: "/src/pages/dashboard.html",
     title: "Dashboard | " + pageTitle,
     description: "This is the dashboard page",
   },
   "/register": {
-    template: "/src/templates/register.html",
+    template: "/src/pages/register.html",
     title: "Register | " + pageTitle,
     description: "This is the registration page",
   },
   "/studio_details": {
-    template: "/src/templates/studio_details.html",
+    template: "/src/pages/studio_details.html",
     title: "Studio Details | " + pageTitle,
     description: "This is the studio details page",
   },

@@ -1,0 +1,12 @@
+/* Responsive container */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.container-fluid {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+}
