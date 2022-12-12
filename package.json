@@ -2,17 +2,19 @@
   "name": "cut-session",
   "version": "1.0.0",
   "description": "",
-  "source": "index.html",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel",
-    "build": "parcel build"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "axios": "^1.2.1",
-    "parcel": "^2.8.1"
+    "typescript": "^4.9.3",
+    "vite": "^4.0.0"
   }
 }
