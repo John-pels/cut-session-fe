@@ -1,3 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800&family=Poppins:wght@100;200;300;400;500;600;700&display=swap");
+
+:root {
+  font-family: "Poppins", sans-serif;
+  --white: #fff;
+  --blue-violet: #6268bf;
+  --white-alt: #ebffef;
+}
+
 /* Responsive container */
 .container {
   width: 100%;
