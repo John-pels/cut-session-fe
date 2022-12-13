@@ -5,6 +5,118 @@
   --white: #fff;
   --blue-violet: #6268bf;
   --white-alt: #ebffef;
+  --gray: rgb(42, 40, 40);
+  --input-border: rgb(173, 168, 168);
+  --border-radius: 6px;
+  --spacing: 20px;
+  --spacing-sm: 10px;
+  --spacing-xs: 8px;
+  --error: #e74c3c;
+  --success: #2ecc71;
+}
+
+.flex {
+  display: flex;
+  height: 100vh;
+  overflow-y: auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-content {
+  width: 100%;
+  max-width: 400px;
+  padding: var(--spacing);
+  padding-top: 0;
+  box-shadow: 20px 20px 60px #e8e6e6, -20px -20px 60px #ffffff;
+  border-radius: var(--border-radius);
+}
+
+.brand {
+  display: flex;
+  justify-content: center;
+}
+
+.heading {
+  text-align: center;
+  color: var(--blue-violet);
+}
+
+.form,
+.form__input-group {
+  display: flex;
+  flex-direction: column;
+}
+.form {
+  position: relative;
+  margin-top: var(--spacing);
+}
+
+.form__input-group {
+  padding-bottom: var(--spacing);
+}
+
+label {
+  color: var(--gray);
+}
+
+.form__input {
+  border: 1px solid var(--input-border);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-xs);
+  transition: all 0.3s;
+}
+
+.form__input:focus {
+  outline: none;
+  border: 1px solid var(--blue-violet);
+}
+
+.form__btn-signin {
+  background: var(--blue-violet);
+  color: var(--white-alt);
+  padding: var(--spacing-xs);
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all 0.3s;
+  margin: var(--spacing-xs) 0;
+}
+
+.form__btn-signin:hover {
+  filter: brightness(1.2);
+}
+
+.form__footer-text {
+  color: var(--gray);
+  margin-top: var(--spacing-sm);
+}
+
+.form__footer-text a {
+  color: var(--blue-violet);
+  text-decoration: none;
+}
+
+/* Form Validation */
+
+.form__control.success input {
+  border-color: #2ecc71;
+}
+
+.form__control.error input {
+  border-color: #e74c3c;
+}
+
+.form__control small {
+  visibility: hidden;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.form__control.error small {
+  color: #e74c3c;
+  visibility: visible;
 }
 
 /* Responsive container */
