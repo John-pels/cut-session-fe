@@ -6,6 +6,7 @@
   --blue-violet: #6268bf;
   --white-alt: #ebffef;
   --gray: rgb(42, 40, 40);
+  --gray-alt: rgb(101, 98, 98);
   --input-border: rgb(173, 168, 168);
   --border-radius: 6px;
   --spacing: 20px;
@@ -93,7 +94,6 @@ label {
 
 .form__footer-text a {
   color: var(--blue-violet);
-  text-decoration: none;
 }
 
 /* Form Validation */
