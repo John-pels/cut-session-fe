@@ -1,1 +1,28 @@
-<section>Dashboard Page</section>
+<section class="dashboard">
+  <header class="header container-fluid">
+    <div class="header__brand">
+      <a href="/dashboard">
+        <img
+          src="/cut-session.svg"
+          alt="brand logo"
+          class="header__brand--logo"
+        />
+        <span>Cut Session</span>
+      </a>
+    </div>
+    <div class="header__user-info">
+      <span class="header__username">John_pels</span>
+      <span class="header__logout">Logout</span>
+    </div>
+  </header>
+  <section class="dashboard__search">
+    <form class="dashboard__search--form">
+      <input
+        type="text"
+        class="dashboard__search--input"
+        placeholder="search studios by name or city..."
+      />
+      <button class="dashboard__search--btn">Search</button>
+    </form>
+  </section>
+</section>

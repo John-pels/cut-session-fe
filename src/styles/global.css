@@ -17,8 +17,7 @@
 
 .flex {
   display: flex;
-  height: 100vh;
-  overflow-y: auto;
+  min-height: 100vh;
   align-items: center;
   justify-content: center;
 }
@@ -99,22 +98,22 @@ label {
 
 /* Form Validation */
 
-.form__control.success input {
+.form__input-group.success input {
   border-color: #2ecc71;
 }
 
-.form__control.error input {
+.form__input-group.error input {
   border-color: #e74c3c;
 }
 
-.form__control small {
+.form__input-group small {
   visibility: hidden;
   position: absolute;
   bottom: 0;
   left: 0;
 }
 
-.form__control.error small {
+.form__input-group.error small {
   color: #e74c3c;
   visibility: visible;
 }

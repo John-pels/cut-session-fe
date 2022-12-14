@@ -1,0 +1,146 @@
+.dashboard {
+  padding: var(--spacing);
+  padding-top: 10px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header__brand {
+  margin-top: -10px;
+}
+
+.header__brand a {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.header__brand--logo {
+  width: 35%;
+  aspect-ratio: 2/2;
+  object-fit: contain;
+}
+
+.header__brand span {
+  white-space: nowrap;
+  color: var(--blue-violet);
+  font-weight: 500;
+  font-size: 1.5em;
+  margin-top: var(--spacing);
+  margin-left: -8px;
+}
+
+.header__user-info {
+  display: flex;
+  gap: 25px;
+  color: var(--blue-violet);
+  font-weight: 500;
+  font-size: 1.5em;
+}
+
+.header__logout {
+  cursor: pointer;
+}
+
+.dashboard__search {
+  max-width: 40%;
+  width: 100%;
+  margin: 100px auto;
+}
+
+.dashboard__search--form {
+  display: flex;
+}
+.dashboard__search--input {
+  width: 80%;
+  border: 1px solid var(--input-border);
+  border-top-left-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+  padding: 15px;
+  transition: all 0.3s;
+}
+.dashboard__search--input:focus {
+  outline: none;
+  border: 1px solid var(--blue-violet);
+}
+
+.dashboard__search--btn {
+  width: 20%;
+  background: var(--blue-violet);
+  color: var(--white-alt);
+  padding: 15px;
+  border: none;
+  border-top-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.dashboard__search--btn:hover {
+  filter: brightness(1.2);
+}
+
+/* Tablet View */
+
+@media (max-width: 840px) {
+  .header__brand span {
+    font-size: 1.2em;
+  }
+  .header__brand {
+    margin-top: -10px;
+  }
+
+  .header__brand--logo {
+    aspect-ratio: 3/2;
+    margin-top: 10px;
+  }
+
+  .header__user-info {
+    font-size: 1.2em;
+  }
+
+  .dashboard__search {
+    max-width: 80%;
+  }
+}
+
+/* Mobile View */
+
+@media (max-width: 600px) {
+  .header__brand span {
+    display: none;
+  }
+
+  .header__brand--logo {
+    width: 100%;
+    margin-left: -15px;
+    margin-bottom: 8px;
+  }
+
+  .header__user-info {
+    font-size: 1em !important;
+  }
+
+  .dashboard__search {
+    max-width: 100%;
+    margin: 50px auto;
+  }
+
+  .dashboard__search--input {
+    width: 100%;
+    padding: 10px;
+  }
+  .dashboard__search--input::placeholder {
+    font-size: 0.8em;
+  }
+
+  .dashboard__search--btn {
+    font-size: 0.8em;
+    padding: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}
