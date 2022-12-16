@@ -1,68 +1,68 @@
-import { IUrlRoutes } from "../@types";
+import Dashboard from "../pages/Dashboard";
+import LoginPage from "../pages/LoginPage";
+import RegisterPage from "../pages/RegisterPage";
+import PageNotFound from "../pages/404";
+import StudioSessions from "../pages/StudioSessions";
+import BookSession from "../pages/BookSession";
+import Component from "../pages/Component";
 
-const pageTitle = "Cut Session";
-const rootElement = document.getElementById("root") as HTMLElement; //get the root element
-const rootMetaDescription = document.querySelector(
-  'meta[name="description"]'
-) as HTMLElement; // get the root element meta description
+const rootElement = document.querySelector("#root") as HTMLElement;
 
-//create document click that watches the links only
-document.addEventListener("click", (event) => {
-  const { target } = event;
-  if (!(target as Element).matches("a")) {
-    return;
+const pathToRegex = (path: string) =>
+  new RegExp("^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$");
+
+const getParams = (match: {
+  route: { path: string; view: typeof Component };
+  result: [k: string];
+}) => {
+  const values = match.result.slice(1);
+  const keys = Array.from(match.route.path.matchAll(/:(\w+)/g)).map(
+    (result) => result[1]
+  );
+
+  return Object.fromEntries(
+    keys.map((key, i) => {
+      return [key, values[i]];
+    })
+  );
+};
+
+const navigateTo = (url: string) => {
+  history.pushState(null, "", url);
+  router();
+};
+
+const router = async () => {
+  const routes: Array<{ path: string; view: typeof Component }> = [
+    { path: "/", view: LoginPage },
+    { path: "/register", view: RegisterPage },
+    { path: "/dashboard", view: Dashboard },
+    { path: "/dashboard/studio/:merchantId", view: StudioSessions },
+    { path: "/dashboard/studio/book/:merchantId", view: BookSession },
+    { path: "/*", view: PageNotFound },
+  ];
+
+  // Test each route for potential match
+  const potentialMatches = routes.map((route) => {
+    return {
+      route: route,
+      result: location.pathname.match(pathToRegex(route.path)),
+    };
+  });
+
+  let match: any = potentialMatches.find(
+    (potentialMatch) => potentialMatch.result !== null
+  );
+
+  if (!match) {
+    match = {
+      route: routes[routes.length - 1],
+      result: [location.pathname],
+    };
   }
-  event.preventDefault();
-  urlRoute(event);
-});
 
-const urlRoute = (event: any) => {
-  event = event || window.event;
-  event.preventDefault();
-  window.history.pushState({}, "", event.target.href);
-  urlLocationHandler();
+  const view = await new match.route.view(getParams(match));
+  return view.render();
 };
 
-// create an object that maps the url to the template, title, and description
-const urlRoutes: IUrlRoutes = {
-  "404": {
-    template: "/src/pages/404.html",
-    title: "404 | " + pageTitle,
-    description: "Page not found",
-  },
-  "/": {
-    template: "/src/pages/index.html",
-    title: "Home | " + pageTitle,
-    description: "This is the home page",
-  },
-  "/dashboard": {
-    template: "/src/pages/dashboard.html",
-    title: "Dashboard | " + pageTitle,
-    description: "This is the dashboard page",
-  },
-  "/register": {
-    template: "/src/pages/register.html",
-    title: "Register | " + pageTitle,
-    description: "This is the registration page",
-  },
-  "/studio_details": {
-    template: "/src/pages/studio_details.html",
-    title: "Studio Details | " + pageTitle,
-    description: "This is the studio details page",
-  },
-};
-
-const urlLocationHandler = async () => {
-  let location = window.location.pathname;
-  if (location.length == 0) {
-    location = "/";
-  }
-  const route = urlRoutes[location] || urlRoutes["404"];
-  const html = await fetch(route.template).then((response) => response.text());
-  rootElement.innerHTML = html;
-  document.title = route.title;
-  rootMetaDescription.setAttribute("content", route.description);
-};
-
-// call the urlLocationHandler function to handle the initial url
-export { urlLocationHandler, urlRoute };
+export { router, navigateTo, rootElement };

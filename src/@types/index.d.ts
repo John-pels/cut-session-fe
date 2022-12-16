@@ -2,6 +2,9 @@ declare global {
   interface Window {
     route: (e) => void;
   }
+  interface Params {
+    merchantId?: string;
+  }
 }
 
 export type IUrlRoutes = {

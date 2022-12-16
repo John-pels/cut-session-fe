@@ -1,27 +1,37 @@
-const form = document.querySelector("#form") as HTMLFormElement;
-const name = document.querySelector("#name") as HTMLInputElement;
-const email = document.querySelector("#email") as HTMLInputElement;
-const dateOfBirth = document.querySelector("#dob") as HTMLInputElement;
-const password = document.querySelector("#password") as HTMLInputElement;
-const username = document.querySelector("#username") as HTMLInputElement;
+const validateFormInputs = (isLogin = false) => {
+  const name = document.querySelector("#name") as HTMLInputElement;
+  const email = document.querySelector("#email") as HTMLInputElement;
+  const dateOfBirth = document.querySelector("#dob") as HTMLInputElement;
+  const password = document.querySelector("#password") as HTMLInputElement;
+  const username = document.querySelector("#username") as HTMLInputElement;
 
-const validateFormInputs = () => {
-  console.log(form);
-  console.log(name);
-  console.log(email);
-  console.log(password);
-  const nameValue = name.value.trim();
+  const nameValue = !isLogin && name.value.trim();
   const emailValue = email.value.trim();
-  const dobValue = dateOfBirth.value.trim();
+  const dobValue = !isLogin && dateOfBirth.value.trim();
   const passwordValue = password.value.trim();
-  const usernameValue = username.value.trim();
+  const usernameValue = !isLogin && username.value.trim();
 
-  //Full Name
+  if (!isLogin) {
+    //Full Name
+    if (nameValue === "") {
+      setErrorInput(name, "Full name is required");
+    } else {
+      setSuccessInput(name);
+    }
 
-  if (nameValue === "") {
-    setErrorInput(name, "Full name is required");
-  } else {
-    setSuccessInput(name);
+    //Usernanme
+    if (usernameValue === "") {
+      setErrorInput(username, "Username is required");
+    } else {
+      setSuccessInput(username);
+    }
+
+    //Date of Birth
+    if (dobValue === "") {
+      setErrorInput(dateOfBirth, "Date of Birth is required");
+    } else {
+      setSuccessInput(dateOfBirth);
+    }
   }
 
   //Email Address
@@ -31,25 +41,11 @@ const validateFormInputs = () => {
     validateEmail(emailValue) && setSuccessInput(email);
   }
 
-  //Date of Birth
-  if (dobValue === "") {
-    setErrorInput(dateOfBirth, "Date of Birth is required");
-  } else {
-    setSuccessInput(dateOfBirth);
-  }
-
   //Password
   if (passwordValue === "") {
     setErrorInput(password, "Password is required");
   } else {
     validatePassword(passwordValue) && setSuccessInput(password);
-  }
-
-  //Usernanme
-  if (usernameValue === "") {
-    setErrorInput(username, "Username is required");
-  } else {
-    setSuccessInput(username);
   }
 };
 
@@ -72,8 +68,16 @@ const validateEmail = (email: string): boolean => {
 };
 
 const validatePassword = (password: string): boolean => {
-  let regular_expressions = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/;
+  let regular_expressions = /^(?!.* ).{6,}$/;
   return regular_expressions.test(password);
 };
 
-export { form, validateFormInputs };
+const formValidation = (isLogin = false) => {
+  const form = document.querySelector("#form") as HTMLFormElement;
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    validateFormInputs(isLogin);
+  });
+};
+
+export { formValidation };
