@@ -1,4 +1,19 @@
-<section class="dashboard container-fluid">
+import { rootElement } from "../scripts/router";
+import Component from "./Component.js";
+
+export default class extends Component {
+  constructor(params: Params) {
+    super(params);
+    this.setTitle("Cut Session | Dashboard");
+  }
+
+  method() {
+    console.log("hey man!");
+  }
+
+  getHtml() {
+    return `
+  <section class="dashboard container-fluid">
   <header class="header">
     <div class="header__brand">
       <a href="/dashboard">
@@ -12,7 +27,9 @@
     </div>
     <div class="header__user-info">
       <span class="header__username">John_pels</span>
-      <span class="header__logout">Logout</span>
+      <span class="header__logout">
+      <a href="/" data-url>Logout</a>
+      </span>
     </div>
   </header>
   <section class="dashboard__search">
@@ -26,7 +43,7 @@
     </form>
   </section>
   <section class="studio-grid">
-    <a href="/studio_details">
+    <a href="dashboard/studio/235jksmn3598dkdk" data-url>
       <div class="studio-grid__item">
         <div class="studio-grid__item">
           <img
@@ -35,7 +52,9 @@
             class="studio-image"
           />
           <div class="studio__content">
-            <code class="studio-name"><b>Name</b>: Pendulum Studio </code>
+            <code class="studio-name">
+              <b>Name</b>: Pendulum Studio
+            </code>
             <code class="studio-name">
               <b>Location:</b> No.5 Sir Bobby Street, Manchester, UK.
             </code>
@@ -43,44 +62,52 @@
         </div>
       </div>
     </a>
-    <a href="/studio_details">
+    <a href="/dashboard/studio/235jksmn3598dkdk" data-url>
       <div class="studio-grid__item">
         <img src="/studio_image.jpg" alt="studio Image" class="studio-image" />
         <div class="studio__content">
-          <code class="studio-name"><b>Name</b>: Pendulum Studio </code>
+          <code class="studio-name">
+            <b>Name</b>: Pendulum Studio
+          </code>
           <code class="studio-name">
             <b>Location:</b> No.5 Sir Bobby Street, Manchester, UK.
           </code>
         </div>
       </div>
     </a>
-    <a href="/studio_details">
+    <a href="/dashboard/studio/235jksmn3598dkdk" data-url>
       <div class="studio-grid__item">
         <img src="/studio_image.jpg" alt="studio Image" class="studio-image" />
         <div class="studio__content">
-          <code class="studio-name"><b>Name</b>: Pendulum Studio </code>
+          <code class="studio-name">
+            <b>Name</b>: Pendulum Studio
+          </code>
           <code class="studio-name">
             <b>Location:</b> No.5 Sir Bobby Street, Manchester, UK.
           </code>
         </div>
       </div>
     </a>
-    <a href="/studio_details">
+    <a href="/dashboard/studio/235jksmn3598dkdk" data-url>
       <div class="studio-grid__item">
         <img src="/studio_image.jpg" alt="studio Image" class="studio-image" />
         <div class="studio__content">
-          <code class="studio-name"><b>Name</b>: Pendulum Studio </code>
+          <code class="studio-name">
+            <b>Name</b>: Pendulum Studio
+          </code>
           <code class="studio-name">
             <b>Location:</b> No.5 Sir Bobby Street, Manchester, UK.
           </code>
         </div>
       </div>
     </a>
-    <a href="/studio_details">
+    <a href="/dashboard/studio/235jksmn3598dkdk" data-url>
       <div class="studio-grid__item">
         <img src="/studio_image.jpg" alt="studio Image" class="studio-image" />
         <div class="studio__content">
-          <code class="studio-name"><b>Name</b>: Pendulum Studio </code>
+          <code class="studio-name">
+            <b>Name</b>: Pendulum Studio
+          </code>
           <code class="studio-name">
             <b>Location:</b> No.5 Sir Bobby Street, Manchester, UK.
           </code>
@@ -88,4 +115,12 @@
       </div>
     </a>
   </section>
-</section>
+</section>;
+     `;
+  }
+
+  render() {
+    rootElement.innerHTML = this.getHtml();
+    this.method();
+  }
+}

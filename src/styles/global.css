@@ -48,13 +48,12 @@
   flex-direction: column;
 }
 .form {
-  position: relative;
   margin-top: var(--spacing);
 }
 
-.form__input-group {
+/* .form__input-group {
   padding-bottom: var(--spacing);
-}
+} */
 
 label {
   color: var(--gray);
@@ -70,6 +69,7 @@ label {
 .form__input:focus {
   outline: none;
   border: 1px solid var(--blue-violet);
+  background: var(--white);
 }
 
 .form__btn-signin {
@@ -108,9 +108,6 @@ label {
 
 .form__input-group small {
   visibility: hidden;
-  position: absolute;
-  bottom: 0;
-  left: 0;
 }
 
 .form__input-group.error small {

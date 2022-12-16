@@ -1,5 +1,20 @@
-<section class="container">
-  <div class="flex">
+import { formValidation } from "../scripts/formValidation";
+import { rootElement } from "../scripts/router";
+import Component from "./Component.js";
+export default class extends Component {
+  constructor(params: Params) {
+    super(params);
+    this.setTitle("Cut Session | Sign-Up");
+  }
+
+  methods() {
+    formValidation();
+  }
+
+  getHtml() {
+    return `
+    <section class="container">
+    <div class="flex">
     <div class="auth-content">
       <div class="brand">
         <img src="/cut-session.svg" alt="brand logo" class="brand__logo" />
@@ -14,7 +29,7 @@
             name="name"
             id="name"
             placeholder="John Doe"
-            data-name="name"
+            data-name
           />
           <small>Error message</small>
         </div>
@@ -26,7 +41,7 @@
             name="email"
             id="email"
             placeholder="me@example.com"
-            data-email="email"
+            data-email
           />
           <small>Error message</small>
         </div>
@@ -38,7 +53,7 @@
             name="username"
             id="username"
             placeholder="john_doe"
-            data-username="username"
+            data-username
           />
           <small>Error message</small>
         </div>
@@ -50,7 +65,7 @@
             name="password"
             id="password"
             placeholder="*******"
-            data-password="password"
+            data-password
           />
           <small>Error message</small>
         </div>
@@ -61,15 +76,23 @@
             class="form__input"
             name="dob"
             id="dob"
-            data-dob="dob"
+            data-dob
           />
           <small>Error message</small>
         </div>
         <button class="form__btn-signin">Create Account</button>
         <p class="form__footer-text">
-          Already have an account? Sign in <a href="/">here</a>
+          Already have an account? Sign in <a href="/" data-url>here</a>
         </p>
       </form>
     </div>
   </div>
-</section>
+</section>;
+    `;
+  }
+
+  render() {
+    rootElement.innerHTML = this.getHtml();
+    this.methods();
+  }
+}

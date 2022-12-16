@@ -44,6 +44,10 @@
   cursor: pointer;
 }
 
+.header__logout a {
+  color: var(--blue-violet);
+}
+
 .dashboard__search {
   max-width: 40%;
   width: 100%;
