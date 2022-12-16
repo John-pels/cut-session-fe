@@ -86,10 +86,16 @@
   display: grid;
   gap: 30px;
   grid-template-columns: repeat(4, 1fr);
+  padding-bottom: 50px;
 }
 
 .studio-grid__item {
   height: 32vh;
+  transition: all 0.3s;
+}
+
+.studio-grid__item:hover {
+  transform: scale(1.05);
 }
 
 .studio-grid a {
