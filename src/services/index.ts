@@ -4,7 +4,7 @@ class BaseRequest {
   protected api: AxiosInstance;
   constructor() {
     this.api = axios.create({
-      baseURL: import.meta.env.env.VITE_BACKEND_API_URL,
+      baseURL: import.meta.env.VITE_BACKEND_API_URL,
     });
   }
 }

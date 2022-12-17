@@ -22,14 +22,20 @@
   align-items: center;
   justify-content: center;
 }
+.box {
+  box-shadow: 20px 20px 60px #e8e6e6, -20px -20px 60px #ffffff;
+  border-radius: var(--border-radius);
+  padding: var(--spacing);
+}
+
+.mb {
+  margin-bottom: var(--spacing);
+}
 
 .auth-content {
   width: 100%;
   max-width: 400px;
-  padding: var(--spacing);
   padding-top: 0;
-  box-shadow: 20px 20px 60px #e8e6e6, -20px -20px 60px #ffffff;
-  border-radius: var(--border-radius);
 }
 
 .brand {

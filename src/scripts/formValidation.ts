@@ -5,25 +5,18 @@ const validateFormInputs = (isLogin = false) => {
   const password = document.querySelector("#password") as HTMLInputElement;
   const username = document.querySelector("#username") as HTMLInputElement;
 
-  const nameValue = !isLogin && name.value.trim();
-  const emailValue = email.value.trim();
-  const dobValue = !isLogin && dateOfBirth.value.trim();
+  const nameValue = !isLogin ? name.value.trim() : "";
+  const emailValue = !isLogin ? email.value.trim() : "";
+  const dobValue = !isLogin ? dateOfBirth.value.trim() : "";
   const passwordValue = password.value.trim();
-  const usernameValue = !isLogin && username.value.trim();
+  const usernameValue = username.value.trim();
 
+  //Full Name
   if (!isLogin) {
-    //Full Name
     if (nameValue === "") {
       setErrorInput(name, "Full name is required");
     } else {
       setSuccessInput(name);
-    }
-
-    //Usernanme
-    if (usernameValue === "") {
-      setErrorInput(username, "Username is required");
-    } else {
-      setSuccessInput(username);
     }
 
     //Date of Birth
@@ -32,13 +25,13 @@ const validateFormInputs = (isLogin = false) => {
     } else {
       setSuccessInput(dateOfBirth);
     }
-  }
 
-  //Email Address
-  if (emailValue === "") {
-    setErrorInput(email, "Email address is required");
-  } else {
-    validateEmail(emailValue) && setSuccessInput(email);
+    //Email Address
+    if (emailValue === "") {
+      setErrorInput(email, "Email address is required");
+    } else {
+      validateEmail(emailValue) && setSuccessInput(email);
+    }
   }
 
   //Password
@@ -47,18 +40,24 @@ const validateFormInputs = (isLogin = false) => {
   } else {
     validatePassword(passwordValue) && setSuccessInput(password);
   }
+  //Usernanme
+  if (usernameValue === "") {
+    setErrorInput(username, "Username is required");
+  } else {
+    setSuccessInput(username);
+  }
 };
 
 const setErrorInput = (input: HTMLInputElement, errorMessage: string) => {
-  const formControl = input.parentElement;
-  const small = formControl?.querySelector("small") as HTMLElement;
+  const formControl = input.parentElement as HTMLElement;
+  const small = formControl.querySelector("small") as HTMLElement;
   small.innerText = errorMessage;
-  formControl!.className = "form__input-group error";
+  formControl.className = "form__input-group error";
 };
 
 const setSuccessInput = (input: HTMLInputElement) => {
-  const formControl = input.parentElement;
-  formControl!.className = "form__input-group success";
+  const formControl = input.parentElement as HTMLElement;
+  formControl.className = "form__input-group success";
 };
 
 const validateEmail = (email: string): boolean => {
@@ -79,5 +78,11 @@ const formValidation = (isLogin = false) => {
     validateFormInputs(isLogin);
   });
 };
+
+// const isFormValidated = (isLogin:boolean, elements:Array<HTMLElement>) => {
+//   if (isLogin) {
+// if(elem)
+// }
+// }
 
 export { formValidation };

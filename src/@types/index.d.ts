@@ -4,6 +4,7 @@ declare global {
   }
   interface Params {
     merchantId?: string;
+    sessionId?: string;
   }
 }
 

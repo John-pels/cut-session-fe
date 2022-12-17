@@ -1,4 +1,3 @@
-import { formValidation } from "../scripts/formValidation";
 import { rootElement } from "../scripts/router";
 import Component from "./Component.js";
 export default class extends Component {
@@ -7,15 +6,13 @@ export default class extends Component {
     this.setTitle("Cut Session | Sign-Up");
   }
 
-  methods() {
-    formValidation();
-  }
+  methods() {}
 
   getHtml() {
     return `
     <section class="container">
     <div class="flex">
-    <div class="auth-content">
+    <div class="auth-content box">
       <div class="brand">
         <img src="/cut-session.svg" alt="brand logo" class="brand__logo" />
       </div>
@@ -30,6 +27,7 @@ export default class extends Component {
             id="name"
             placeholder="John Doe"
             data-name
+            required
           />
           <small>Error message</small>
         </div>
@@ -42,6 +40,7 @@ export default class extends Component {
             id="email"
             placeholder="me@example.com"
             data-email
+            required
           />
           <small>Error message</small>
         </div>
@@ -54,6 +53,7 @@ export default class extends Component {
             id="username"
             placeholder="john_doe"
             data-username
+            required
           />
           <small>Error message</small>
         </div>
@@ -66,6 +66,8 @@ export default class extends Component {
             id="password"
             placeholder="*******"
             data-password
+            required
+            pattern="^(?!.* ).{6,}$"
           />
           <small>Error message</small>
         </div>
@@ -77,6 +79,7 @@ export default class extends Component {
             name="dob"
             id="dob"
             data-dob
+            required
           />
           <small>Error message</small>
         </div>
