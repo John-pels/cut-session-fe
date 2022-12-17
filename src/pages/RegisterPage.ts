@@ -1,3 +1,4 @@
+import { Notification } from "../scripts/notification";
 import { rootElement } from "../scripts/router";
 import Component from "./Component.js";
 export default class extends Component {
@@ -6,7 +7,38 @@ export default class extends Component {
     this.setTitle("Cut Session | Sign-Up");
   }
 
-  methods() {}
+  handleRegister = () => {
+    const form = document.querySelector("#form") as HTMLFormElement;
+    const username = document.querySelector("#username") as HTMLInputElement;
+    const password = document.querySelector("#password") as HTMLInputElement;
+    const name = document.querySelector("#name") as HTMLInputElement;
+    const dateOfBirth = document.querySelector("#dob") as HTMLInputElement;
+    const email = document.querySelector("#email") as HTMLInputElement;
+    const callback = (event: Event) => {
+      const usernameValue = username.value;
+      const passwordValue = password.value;
+      const dobValue = dateOfBirth.value;
+      const nameValue = name.value;
+      const emailValue = email.value;
+      event.preventDefault();
+      try {
+        console.log("hey", {
+          username: usernameValue,
+          password: passwordValue,
+          email: emailValue,
+          dob: dobValue,
+          name: nameValue,
+        });
+        Notification("Successfully done!");
+      } catch (e) {}
+    };
+
+    form.addEventListener("submit", callback);
+  };
+
+  methods() {
+    this.handleRegister();
+  }
 
   getHtml() {
     return `
@@ -54,6 +86,7 @@ export default class extends Component {
             placeholder="john_doe"
             data-username
             required
+          pattern="^(?!.* ).{3,}$"
           />
           <small>Error message</small>
         </div>

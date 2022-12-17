@@ -8,9 +8,22 @@ export default class extends Component {
   }
 
   handleLogin() {
-    try {
-      console.log("Working");
-    } catch (error) {}
+    const form = document.querySelector("#form") as HTMLFormElement;
+    const username = document.querySelector("#username") as HTMLInputElement;
+    const password = document.querySelector("#password") as HTMLInputElement;
+    const callback = (event: Event) => {
+      const usernameValue = username.value;
+      const passwordValue = password.value;
+      event.preventDefault();
+      try {
+        console.log("hey", {
+          username: usernameValue,
+          password: passwordValue,
+        });
+      } catch (e) {}
+    };
+
+    form.addEventListener("submit", callback);
   }
 
   methods() {
@@ -36,6 +49,7 @@ export default class extends Component {
           placeholder="John_doe"
           data-username
           required
+          pattern="^(?!.* ).{3,}$"
         />
         <small>Error message</small>
       </div>

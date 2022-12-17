@@ -1,3 +1,4 @@
+import { store } from "../store/reducers";
 import { router, navigateTo } from "./router";
 
 window.onpopstate = router;
@@ -11,4 +12,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   router();
+});
+
+//Redux store
+store.subscribe(() => {
+  console.log(store.getState());
 });

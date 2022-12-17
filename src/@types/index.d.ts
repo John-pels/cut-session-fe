@@ -48,3 +48,19 @@ export type IBookStudioSession = {
   notes: string;
   title: string;
 };
+
+export type IClients = {
+  merchantId: string;
+  name: string;
+  email: string;
+  cityOfOperation: string;
+  phoneNumber: string;
+};
+
+export type IStudioSessions = {
+  id: string;
+  merchantId: string;
+  startsAt: string;
+  endsAt: string;
+  type: string;
+};
