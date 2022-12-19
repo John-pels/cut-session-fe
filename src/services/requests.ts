@@ -12,7 +12,7 @@ class RequestService extends BaseRequest {
   constructor() {
     super();
   }
-  signIn = async (payload: ISignInPayload) => {
+  userSignIn = async (payload: ISignInPayload) => {
     return await this.api.post(API_ROUTES.SIGN_IN, payload);
   };
   userSignUp = async (payload: IUserSignUpPayload) => {

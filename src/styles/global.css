@@ -57,10 +57,6 @@
   margin-top: var(--spacing);
 }
 
-/* .form__input-group {
-  padding-bottom: var(--spacing);
-} */
-
 label {
   color: var(--gray);
 }
@@ -87,6 +83,11 @@ label {
   cursor: pointer;
   transition: all 0.3s;
   margin: var(--spacing-xs) 0;
+}
+
+.form__btn-signin:disabled {
+  background: var(--gray-alt);
+  cursor: not-allowed;
 }
 
 .form__btn-signin:hover {

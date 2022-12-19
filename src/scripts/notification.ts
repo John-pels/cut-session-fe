@@ -1,6 +1,9 @@
 import Toastify from "toastify-js";
 
-const Notification = (message: string) => {
+const Notification = (
+  message: string,
+  type: "success" | "error" = "success"
+) => {
   Toastify({
     text: message,
     duration: 5000,
@@ -11,7 +14,7 @@ const Notification = (message: string) => {
     position: "right", // `left`, `center` or `right`
     stopOnFocus: true, // Prevents dismissing of toast on hover
     style: {
-      background: "#2ecc71",
+      background: type === "success" ? "#2ecc71" : "#e74c3c",
     },
     onClick: function () {}, // Callback after click
   }).showToast();

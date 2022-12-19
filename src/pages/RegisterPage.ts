@@ -1,5 +1,7 @@
+import { IUserSignUpPayload } from "../@types";
 import { Notification } from "../scripts/notification";
-import { rootElement } from "../scripts/router";
+import { navigateTo, rootElement } from "../scripts/router";
+import { registerAction } from "../store/actions/auth";
 import Component from "./Component.js";
 export default class extends Component {
   constructor(params: Params) {
@@ -7,30 +9,45 @@ export default class extends Component {
     this.setTitle("Cut Session | Sign-Up");
   }
 
+  onSuccess() {
+    Notification("Your registration is succesful, kindly Sign in to continue");
+    navigateTo("/");
+  }
+
+  onError(msg: string) {
+    Notification(msg, "error");
+  }
+
   handleRegister = () => {
     const form = document.querySelector("#form") as HTMLFormElement;
+    const button = document.querySelector("#button") as HTMLButtonElement;
     const username = document.querySelector("#username") as HTMLInputElement;
     const password = document.querySelector("#password") as HTMLInputElement;
     const name = document.querySelector("#name") as HTMLInputElement;
     const dateOfBirth = document.querySelector("#dob") as HTMLInputElement;
     const email = document.querySelector("#email") as HTMLInputElement;
     const callback = (event: Event) => {
+      event.preventDefault();
       const usernameValue = username.value;
       const passwordValue = password.value;
       const dobValue = dateOfBirth.value;
       const nameValue = name.value;
       const emailValue = email.value;
-      event.preventDefault();
+      const payload: IUserSignUpPayload = {
+        username: usernameValue,
+        password: passwordValue,
+        email: emailValue,
+        dob: dobValue,
+        name: nameValue,
+      };
       try {
-        console.log("hey", {
-          username: usernameValue,
-          password: passwordValue,
-          email: emailValue,
-          dob: dobValue,
-          name: nameValue,
-        });
-        Notification("Successfully done!");
-      } catch (e) {}
+        button.textContent = "please wait...";
+        registerAction(payload, this.onSuccess, this.onError);
+      } catch (e) {
+        console.log(e);
+      } finally {
+        button.textContent = "Create Account";
+      }
     };
 
     form.addEventListener("submit", callback);
@@ -116,7 +133,7 @@ export default class extends Component {
           />
           <small>Error message</small>
         </div>
-        <button class="form__btn-signin">Create Account</button>
+        <button class="form__btn-signin" id="button">Create Account</button>
         <p class="form__footer-text">
           Already have an account? Sign in <a href="/" data-url>here</a>
         </p>

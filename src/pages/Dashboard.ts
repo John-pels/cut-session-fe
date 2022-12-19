@@ -1,10 +1,20 @@
-import { rootElement } from "../scripts/router";
-import Component from "./Component.js";
+import { navigateTo, rootElement } from "../scripts/router";
+import { clearToken } from "../utils/storage";
+import Component from "./Component";
 
 export default class extends Component {
   constructor(params: Params) {
     super(params);
     this.setTitle("Cut Session | Dashboard");
+  }
+
+  handleLogout() {
+    const logoutButton = document.querySelector("#logout") as HTMLSpanElement;
+    logoutButton.addEventListener("click", () => {
+      console.log("logout");
+      clearToken();
+      navigateTo("/");
+    });
   }
 
   renderStudios() {
@@ -40,8 +50,8 @@ export default class extends Component {
   }
 
   methods() {
-    console.log("hey man!");
     this.renderStudios();
+    this.handleLogout();
   }
 
   getHtml() {
@@ -60,8 +70,8 @@ export default class extends Component {
     </div>
     <div class="header__user-info">
       <span class="header__username">John_pels</span>
-      <span class="header__logout">
-      <a href="/" data-url>Logout</a>
+      <span class="header__logout" id="logout">
+       Logout
       </span>
     </div>
   </header>

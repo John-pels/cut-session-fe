@@ -12,6 +12,10 @@ export const getAccessToken = (key: string = "altStudent") => {
   return data;
 };
 
+export const clearToken = () => {
+  return ls.clear();
+};
+
 export const verifyToken = (token: string): boolean => {
   let isTokenExpired = false;
   if (!token) return isTokenExpired;

@@ -1,4 +1,7 @@
-import { rootElement } from "../scripts/router";
+import { ISignInPayload } from "../@types";
+import { Notification } from "../scripts/notification";
+import { navigateTo, rootElement } from "../scripts/router";
+import { loginAction } from "../store/actions/auth";
 import Component from "./Component.js";
 
 export default class extends Component {
@@ -7,22 +10,42 @@ export default class extends Component {
     this.setTitle("Cut Session | Sign-in");
   }
 
+  onSuccess() {
+    Notification("You're Logged In");
+    navigateTo("/dashboard");
+  }
+  onError(msg: string) {
+    Notification(msg, "error");
+  }
+
   handleLogin() {
     const form = document.querySelector("#form") as HTMLFormElement;
+    const button = document.querySelector("#button") as HTMLButtonElement;
     const username = document.querySelector("#username") as HTMLInputElement;
     const password = document.querySelector("#password") as HTMLInputElement;
+
     const callback = (event: Event) => {
+      event.preventDefault();
       const usernameValue = username.value;
       const passwordValue = password.value;
-      event.preventDefault();
-      try {
-        console.log("hey", {
-          username: usernameValue,
-          password: passwordValue,
-        });
-      } catch (e) {}
-    };
 
+      const payload: ISignInPayload = {
+        username: usernameValue,
+        password: passwordValue,
+        accessType: "USER",
+      };
+
+      try {
+        button.textContent = "Signing in...";
+        button.disabled = true;
+        loginAction(payload, this.onSuccess, this.onError);
+      } catch (e) {
+        console.log(e);
+      } finally {
+        button.textContent = "Sign in";
+        button.disabled = false;
+      }
+    };
     form.addEventListener("submit", callback);
   }
 
@@ -67,7 +90,7 @@ export default class extends Component {
         />
         <small>Error message</small>
       </div>
-      <button class="form__btn-signin">Sign in</button>
+      <button class="form__btn-signin" id="button">Sign in</button>
       <p class="form__footer-text">
         Don't have an account yet? Create <a href="/register" data-url>here</a>
       </p>

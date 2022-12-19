@@ -17,8 +17,8 @@ export type IUrlRoutes = {
 };
 
 export type ISignInPayload = {
-  username: "string";
-  password: "pa$$word";
+  username: string;
+  password: string;
   accessType: "USER" | "MERCHANT";
 };
 export type IMerchantSignUpPayload = {
@@ -27,8 +27,8 @@ export type IMerchantSignUpPayload = {
   cityOfOperation?: string;
   username: string;
   password: string;
-  phoneNumber: string;
-  metadata: Object;
+  phoneNumber?: string;
+  metadata?: Object;
 };
 
 export interface IUserSignUpPayload extends IMerchantSignUpPayload {
