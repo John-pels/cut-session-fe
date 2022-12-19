@@ -27,8 +27,10 @@ export const loginAction = async (
   try {
     const response = await requestService.userSignIn(payload);
     console.log(response.data);
+    const userId = response.data.userId;
+    const token = response.data.token;
     if (response.data) {
-      saveToStorage("access-token", response?.data?.token);
+      saveToStorage("cs-user", { token, userId });
       onSuccess?.();
     }
   } catch (err) {

@@ -1,3 +1,4 @@
+import { IBookStudioSession } from "../../@types";
 import requestService from "../../services/requests";
 import { formatErrorMessage } from "../../utils/formatErrorMessage";
 import { store } from "../reducers";
@@ -15,6 +16,26 @@ export const getAllStudioSessionsAction = async (
       store.dispatch({
         type: TYPES.GET_ALL_STUDIO_SESSIONS,
         payload: response.data,
+      });
+      onSuccess?.();
+    }
+  } catch (err) {
+    console.log(err);
+    formatErrorMessage(err, onError);
+  }
+};
+
+export const bookStudioSessionAction = async (
+  payload: IBookStudioSession,
+  onSuccess: () => void,
+  onError: (msg: string) => void
+) => {
+  try {
+    const response = await requestService.bookStudioSession(payload);
+    console.log(response.data);
+    if (response.data) {
+      store.dispatch({
+        type: TYPES.BOOK_A_STUDIO_SESSION,
       });
       onSuccess?.();
     }

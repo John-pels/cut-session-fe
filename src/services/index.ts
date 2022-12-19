@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import { getAccessToken } from "../utils/storage";
 
-const ACCESS_TOKEN = "access-token";
+const ACCESS_TOKEN = "cs-user";
 class BaseRequest {
   protected api: AxiosInstance;
   constructor() {
@@ -14,7 +14,7 @@ class BaseRequest {
   private attachInterceptors() {
     this.api.interceptors.request.use(async (req: AxiosRequestConfig) => {
       try {
-        const token = await getAccessToken(ACCESS_TOKEN);
+        const { token } = await getAccessToken(ACCESS_TOKEN);
 
         if (token) {
           req.headers!.Authorization = `Bearer ${token}`;

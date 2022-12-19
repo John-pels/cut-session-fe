@@ -3,7 +3,10 @@ import jwtDecode, { JwtPayload } from "jwt-decode";
 
 export let ls = new SecureLS({ encodingType: "aes", isCompression: true });
 
-export const saveToStorage = (key: string, value: any) => {
+export const saveToStorage = (
+  key: string,
+  value: { token: string; userId: string }
+) => {
   return ls?.set(key, value);
 };
 
@@ -16,7 +19,7 @@ export const clearToken = () => {
   return ls.clear();
 };
 
-export const verifyToken = (token: string): boolean => {
+export const verifyAndDecodeToken = (token: string): boolean => {
   let isTokenExpired = false;
   if (!token) return isTokenExpired;
   if (typeof window !== "undefined") {
