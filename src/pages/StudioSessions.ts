@@ -1,46 +1,92 @@
+import { IStudioSessions } from "../@types";
+import { Notification } from "../scripts/notification";
 import { rootElement } from "../scripts/router";
-import Component from "./Component.js";
+import { getAllStudioSessionsAction } from "../store/actions/session";
+import { store } from "../store/reducers";
+import { filterDataByKeyAndValue } from "../utils/data";
+import Component from "./Component";
 
 export default class extends Component {
   constructor(params: Params) {
     super(params);
     this.setTitle("Cut Session | Studio Sessions");
+    console.log(params);
+  }
+  isLoading = false;
+
+  onSuccess() {}
+  onError(msg: string) {
+    Notification(msg, "error");
   }
 
-  renderWeekDaySessions() {
-    const data = [...new Array(8)];
+  handleFetchStudioSessions() {
+    try {
+      this.isLoading = true;
+      getAllStudioSessionsAction(
+        this.params.merchantId,
+        this.onSuccess,
+        this.onError
+      );
+    } catch (e) {
+      console.log(e);
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  renderWeekDaySessions(studioSessions: Array<IStudioSessions>) {
     const sessionGrid = document.querySelector(".session__grid") as HTMLElement;
-    const sessions = data
-      .map((_, index) => {
+    const sessions = studioSessions
+      .map((session) => {
         return `
-        <a href="/dashboard/book/439548kfjdnlk" data-url key=${index}>
-        <div class="session__time">14:45:22Z - 16:23:21Z</div>
+        <a href="/dashboard/book/${session.id}" data-url key=${session.id}>
+        <div class="session__time">${session.startsAt} - ${session.endsAt}</div>
         </a>`;
       })
       .join("");
-    sessionGrid.innerHTML = sessions;
+
+    sessionGrid.innerHTML = this.isLoading
+      ? `<div>Loading...<div>`
+      : sessions.length === 0
+      ? `<p>No weeekday sessions available</p>`
+      : sessions;
   }
 
-  renderWeekEndSessions() {
-    const data = [...new Array(8)];
+  renderWeekEndSessions(studioSessions: Array<IStudioSessions>) {
     const sessionGrid = document.querySelector(
       ".weekend-session"
     ) as HTMLElement;
-    const sessions = data
-      .map((_, index) => {
+    const sessions = studioSessions
+      .map((session) => {
         return `
-        <a href="/dashboard/book/439548kfjdnlk" data-url key=${index}>
-        <div class="session__time">14:45:22Z - 16:23:21Z</div>
+         <a href="/dashboard/book/${session.id}" data-url key=${session.id}>
+        <div class="session__time">${session.startsAt} - ${session.endsAt}</div>
         </a>`;
       })
       .join("");
-    sessionGrid.innerHTML = sessions;
+    sessionGrid.innerHTML = this.isLoading
+      ? `<div>Loading...<div>`
+      : sessions.length === 0
+      ? `<div>No weekend sessions available</div>`
+      : sessions;
   }
 
   methods() {
-    this.renderWeekDaySessions();
-    this.renderWeekEndSessions();
-    console.log("Params", this.params.merchantId);
+    store.subscribe(() => {
+      const state = store.getState();
+      const weekendSessions = filterDataByKeyAndValue(
+        state.sessions,
+        "type",
+        "weekEnd"
+      );
+      const weekdaySessions = filterDataByKeyAndValue(
+        state.sessions,
+        "type",
+        "weekDay"
+      );
+      this.renderWeekDaySessions(weekdaySessions);
+      this.renderWeekEndSessions(weekendSessions);
+    });
   }
 
   getHtml() {
@@ -81,5 +127,6 @@ export default class extends Component {
   render() {
     rootElement.innerHTML = this.getHtml();
     this.methods();
+    this.handleFetchStudioSessions();
   }
 }

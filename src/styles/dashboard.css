@@ -112,6 +112,8 @@
 }
 
 .studio__content {
+  display: flex;
+  flex-direction: column;
   padding: var(--spacing-sm);
   color: var(--gray-alt);
 }

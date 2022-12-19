@@ -3,8 +3,8 @@ declare global {
     route: (e) => void;
   }
   interface Params {
-    merchantId?: string;
-    sessionId?: string;
+    merchantId: string;
+    sessionId: string;
   }
 }
 

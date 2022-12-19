@@ -1,29 +1,53 @@
+import { Notification } from "../scripts/notification";
 import { navigateTo, rootElement } from "../scripts/router";
+import { getAllStudiosAction } from "../store/actions/studio";
 import { clearToken } from "../utils/storage";
 import Component from "./Component";
+import { IClients } from "../@types";
+import { store } from "../store/reducers";
 
 export default class extends Component {
   constructor(params: Params) {
     super(params);
     this.setTitle("Cut Session | Dashboard");
   }
+  isLoading = false;
+
+  onSuccess() {
+    console.log("fetch success");
+  }
+  onError(msg: string) {
+    Notification(msg, "error");
+  }
 
   handleLogout() {
     const logoutButton = document.querySelector("#logout") as HTMLSpanElement;
     logoutButton.addEventListener("click", () => {
-      console.log("logout");
       clearToken();
       navigateTo("/");
     });
   }
+  handleFetchStudios() {
+    try {
+      this.isLoading = true;
+      getAllStudiosAction(
+        "?type=USER&limit=20&offset=1",
+        this.onSuccess,
+        this.onError
+      );
+    } catch (e) {
+      console.log(e);
+    } finally {
+      this.isLoading = false;
+    }
+  }
 
-  renderStudios() {
-    const data = [...new Array(10)];
+  renderStudios(allStudios: Array<IClients>) {
     const grid = document.querySelector(".studio-grid") as HTMLElement;
-    const studios = data
-      .map((_, index) => {
+    const studios = allStudios
+      .map((studio) => {
         return `
-      <a href="dashboard/studio/235jksmn3598dkdk" data-url key=${index}>
+      <a href=dashboard/studio/${studio.merchantId} data-url key=${studio.merchantId}>
       <div class="studio-grid__item">
         <div class="studio-grid__item">
           <img
@@ -33,10 +57,13 @@ export default class extends Component {
           />
           <div class="studio__content">
             <code class="studio-name">
-              <b>Name</b>: Pendulum Studio
+              <b>Name</b>: ${studio.name} studio
             </code>
             <code class="studio-name">
-              <b>Location:</b> No.5 Sir Bobby Street, Manchester, UK.
+              <b>Location:</b> ${studio.cityOfOperation}
+            </code>
+             <code class="studio-name">
+              <b>Email:</b> ${studio.email}
             </code>
           </div>
         </div>
@@ -46,12 +73,20 @@ export default class extends Component {
       })
       .join("");
 
-    grid.innerHTML = studios;
+    grid.innerHTML = this.isLoading
+      ? `<div>Loading...<div>`
+      : studios.length === 0
+      ? `<p>No studios available</p>`
+      : studios;
   }
 
   methods() {
-    this.renderStudios();
+    store.subscribe(() => {
+      const state = store.getState();
+      this.renderStudios(state.studios);
+    });
     this.handleLogout();
+    this.handleFetchStudios();
   }
 
   getHtml() {

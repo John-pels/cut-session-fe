@@ -14,10 +14,10 @@ class BaseRequest {
   private attachInterceptors() {
     this.api.interceptors.request.use(async (req: AxiosRequestConfig) => {
       try {
-        const token: any = await getAccessToken(ACCESS_TOKEN);
+        const token = await getAccessToken(ACCESS_TOKEN);
 
         if (token) {
-          req.headers.Authorization = `Bearer ${token}`;
+          req.headers!.Authorization = `Bearer ${token}`;
         }
       } catch (error) {
         //Do nothing
