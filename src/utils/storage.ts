@@ -5,7 +5,7 @@ export let ls = new SecureLS({ encodingType: "aes", isCompression: true });
 
 export const saveToStorage = (
   key: string,
-  value: { token: string; userId: string }
+  value: { token: string; userId?: string; merchantId?: string }
 ) => {
   return ls?.set(key, value);
 };

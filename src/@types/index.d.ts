@@ -24,7 +24,7 @@ export type ISignInPayload = {
 export type IMerchantSignUpPayload = {
   name: string;
   email: string;
-  cityOfOperation?: string;
+  cityOfOperation: string;
   username: string;
   password: string;
   phoneNumber?: string;
@@ -63,4 +63,16 @@ export type IStudioSessions = {
   startsAt: string;
   endsAt: string;
   type: string;
+};
+
+export type ISessionBookings = {
+  bookingId: string;
+  bookingRef: string;
+  userId: string;
+  sessionId: string;
+  date: string;
+  startsAt: string;
+  endsAt: string;
+  notes: string;
+  title: string;
 };

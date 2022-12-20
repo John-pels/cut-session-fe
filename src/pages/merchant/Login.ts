@@ -40,7 +40,7 @@ class MerchantLogin extends Component {
       };
       button.textContent = "Signinig in....";
       button.disabled = true;
-      loginAction(payload, this.onSuccess, this.onError);
+      loginAction(payload, this.onSuccess, this.onError, true);
     };
     form.addEventListener("submit", callback);
   }

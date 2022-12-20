@@ -1,7 +1,7 @@
-import { IUserSignUpPayload } from "../../@types";
+import { IMerchantSignUpPayload } from "../../@types";
 import { Notification } from "../../scripts/notification";
 import { navigateTo, rootElement } from "../../scripts/router";
-import { registerAction } from "../../store/actions/auth";
+import { registerMerchantAction } from "../../store/actions/auth";
 import Component from "../Component";
 class MerchantRegister extends Component {
   constructor(params: Params) {
@@ -14,13 +14,13 @@ class MerchantRegister extends Component {
     button.textContent = "Create Account";
     button.disabled = false;
     Notification("Your registration is succesful, kindly Sign in to continue");
-    navigateTo("/");
+    navigateTo("/merchant/login");
   }
 
   onError(msg: string) {
     const button = document.querySelector("#button") as HTMLButtonElement;
     button.textContent = "Create Account";
-    button.disabled = true;
+    button.disabled = false;
     Notification(msg, "error");
   }
 
@@ -30,25 +30,28 @@ class MerchantRegister extends Component {
     const username = document.querySelector("#username") as HTMLInputElement;
     const password = document.querySelector("#password") as HTMLInputElement;
     const name = document.querySelector("#name") as HTMLInputElement;
-    const dateOfBirth = document.querySelector("#dob") as HTMLInputElement;
+    const cityOfOperation = document.querySelector(
+      "#cityOfOperation"
+    ) as HTMLInputElement;
     const email = document.querySelector("#email") as HTMLInputElement;
     const callback = (event: Event) => {
       event.preventDefault();
       const usernameValue = username.value;
       const passwordValue = password.value;
-      const dobValue = dateOfBirth.value;
+      const cityValue = cityOfOperation.value;
       const nameValue = name.value;
       const emailValue = email.value;
-      const payload: IUserSignUpPayload = {
+      const payload: IMerchantSignUpPayload = {
         username: usernameValue,
         password: passwordValue,
         email: emailValue,
-        dob: dobValue,
+        cityOfOperation: cityValue,
         name: nameValue,
       };
+      console.log("hey", payload);
       button.textContent = "please wait...";
       button.disabled = true;
-      registerAction(payload, this.onSuccess, this.onError);
+      registerMerchantAction(payload, this.onSuccess, this.onError);
     };
 
     form.addEventListener("submit", callback);
@@ -123,13 +126,13 @@ class MerchantRegister extends Component {
           <small>Error message</small>
         </div>
         <div class="form__input-group">
-          <label for="dob">Date of Birth</label>
+          <label for="cityOfOperation">City of Operation</label>
           <input
-            type="date"
+            type="text"
             class="form__input"
-            name="dob"
-            id="dob"
-            data-dob
+            name="cityOfOperation"
+            id="cityOfOperation"
+            data-cityOfOperation
             required
           />
           <small>Error message</small>

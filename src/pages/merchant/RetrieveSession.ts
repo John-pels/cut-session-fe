@@ -1,9 +1,8 @@
-import { IStudioSessions } from "../../@types";
+import { ISessionBookings } from "../../@types";
 import { Notification } from "../../scripts/notification";
 import { rootElement } from "../../scripts/router";
-import { getAllStudioSessionsAction } from "../../store/actions/session";
+import { retrieveSessionBookingsAction } from "../../store/actions/session";
 import { store } from "../../store/reducers";
-import { filterDataByKeyAndValue } from "../../utils/data";
 import { withAuth } from "../../utils/withAuth";
 import Component from "../Component";
 
@@ -11,88 +10,71 @@ class RetrieveSessionsBookings extends Component {
   constructor(params: Params) {
     super(params);
     this.setTitle("Cut Session | Studio Sessions");
-    withAuth();
+    withAuth("cs-merchant");
   }
-
+  loader = `<p class="text-center">Loading...</p>`;
   onSuccess() {}
   onError(msg: string) {
     Notification(msg, "error");
   }
 
-  handleGobackup() {
-    const backButton = document.querySelector(
-      "#back-to-studio"
-    ) as HTMLSpanElement;
-    backButton.addEventListener("click", () => {
-      window.location.replace("/dashboard");
-    });
+  handleFetchSessionBookings() {
+    retrieveSessionBookingsAction(
+      `?limit=50&offset=1&city=lagos`,
+      this.onSuccess,
+      this.onError
+    );
   }
 
-  handleFetchStudioSessions() {
-    try {
-      getAllStudioSessionsAction(
-        this.params.merchantId,
-        this.onSuccess,
-        this.onError
-      );
-    } catch (e) {
-      console.log(e);
-    } finally {
-    }
-  }
-
-  renderWeekDaySessions(studioSessions: Array<IStudioSessions>) {
-    const sessionGrid = document.querySelector(".session__grid") as HTMLElement;
-    const sessions = studioSessions
-      .map((session) => {
-        return `
-        <a href="/dashboard/book/${session.id}" data-url key=${session.id}>
-        <div class="session__time">${session.startsAt} - ${session.endsAt}</div>
-        </a>`;
-      })
-      .join("");
-
-    sessionGrid.innerHTML =
-      sessions.length === 0
-        ? `<p>No weeekday sessions available</p>`
-        : sessions;
-  }
-
-  renderWeekEndSessions(studioSessions: Array<IStudioSessions>) {
-    const sessionGrid = document.querySelector(
-      ".weekend-session"
+  renderSessionBookings(bookings: Array<ISessionBookings>) {
+    const allBookings = document.querySelector(
+      ".session__bookings"
     ) as HTMLElement;
-    const sessions = studioSessions
-      .map((session) => {
+
+    const tableRow = bookings
+      .map(({ date, bookingId, startsAt, endsAt }, index) => {
         return `
-         <a href="/dashboard/book/${session.id}" data-url key=${session.id}>
-        <div class="session__time">${session.startsAt} - ${session.endsAt}</div>
-        </a>`;
+        <tr>
+        <td>${index + 1}</td>
+        <td>${new Date(date).toLocaleDateString()}</td>
+        <td>${bookingId}</td>
+        <td>${startsAt}</td>
+        <td>${endsAt}</td>
+        <td id="view">View</td>
+   </tr>`;
       })
       .join("");
-    sessionGrid.innerHTML =
-      sessions.length === 0
-        ? `<div>No weekend sessions available</div>`
-        : sessions;
+
+    const tableData = `
+     <table class="booking__table">
+   <thead>
+   <tr>
+      <th>S/N</th>
+      <th>Date</th>
+      <th>ID</th>
+      <th>Starts At</th>
+      <th>Ends At</th>
+      <th>Action</th>
+   </tr>
+   </thead>
+   <tbody id="table-body">
+   ${tableRow}
+   </tbody>
+   </table>
+    `;
+
+    allBookings.innerHTML =
+      bookings.length === 0
+        ? `<div class="text-center">No session bookings available</div>`
+        : tableData;
   }
 
   methods() {
+    this.handleFetchSessionBookings();
     store.subscribe(() => {
       const state = store.getState();
-      const weekendSessions = filterDataByKeyAndValue(
-        state.sessions,
-        "type",
-        "weekEnd"
-      );
-      const weekdaySessions = filterDataByKeyAndValue(
-        state.sessions,
-        "type",
-        "weekDay"
-      );
-
-      this.renderWeekDaySessions(weekdaySessions);
-      this.renderWeekEndSessions(weekendSessions);
-      this.handleGobackup();
+      this.renderSessionBookings(state.sessionBookings);
+      console.log("store", state);
     });
   }
 
@@ -111,23 +93,18 @@ class RetrieveSessionsBookings extends Component {
       </a>
     </div>
     <div class="header__user-info">
-      <span class="header__username" id="back-to-studio">
-      Studios
-      </span>
+    <a href="/merchant/session/create" data-url> Create Session</a>
       <span class="header__logout">
-      <a href="/" data-url>Logout</a>
+      <a href="/merchant/login" data-url>Logout</a>
       </span>
     </div>
    </header>
 
    <section class="studio-session">
-   <h2 class="session__title">Weekday Sessions</h2>
-   <div class="session__grid"><p class="text-center">Loading...</p></div>
-   </section>
-
-   <section class="studio-session">
-   <h2 class="session__title">Weekend Sessions</h2>
-   <div class="session__grid weekend-session"><p class="text-center">Loading...</p></div>
+   <h2 class="session__title">My Session Bookings</h2>
+   <div class="session__bookings">
+   ${this.loader}
+   </div>
    </section>
   <section class="dashboard container-fluid">
      `;
@@ -136,7 +113,6 @@ class RetrieveSessionsBookings extends Component {
   render() {
     rootElement.innerHTML = this.getHtml();
     this.methods();
-    this.handleFetchStudioSessions();
   }
 }
 

@@ -1,8 +1,7 @@
-import { IClients, IStudioSessions } from "../../@types";
+import { IClients, ISessionBookings, IStudioSessions } from "../../@types";
 
 export enum TYPES {
-  GET_MERCHANT_ID = "GET_MERCHANT_ID",
-  GET_STUDIO_SESSION_ID = "GET_STUDIO_SESSION_ID",
+  RETRIEVE_SESSION_BOOKINGS = "RETRIEVE_SESSION_BOOKINGS",
   GET_ALL_CLIENTS = "GET_ALL_CLIENTS",
   CREATE_STUDIO_SESSIONS = "CREATE_STUDIO_SESSIONS",
   GET_ALL_STUDIO_SESSIONS = "GET_ALL_STUDIO_SESSIONS",
@@ -10,20 +9,14 @@ export enum TYPES {
 }
 
 export interface State {
-  merchantId: string;
-  sessionId: string;
   studios: Array<IClients>;
   sessions: Array<IStudioSessions>;
+  sessionBookings: Array<ISessionBookings>;
 }
 
-export type IGetStudioSessionId = {
-  type: TYPES.GET_STUDIO_SESSION_ID;
-  payload: string;
-};
-
-export type IGetMerchantId = {
-  type: TYPES.GET_MERCHANT_ID;
-  payload: string;
+export type IRetrieveSessionBookings = {
+  type: TYPES.RETRIEVE_SESSION_BOOKINGS;
+  payload: Array<ISessionBookings>;
 };
 
 export type IGetClientSuccess = {
@@ -48,5 +41,4 @@ export type AppActions =
   | ICreateStudioSession
   | IGetAllStudioSessions
   | IBookStudioSession
-  | IGetStudioSessionId
-  | IGetMerchantId;
+  | IRetrieveSessionBookings;

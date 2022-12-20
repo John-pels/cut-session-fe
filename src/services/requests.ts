@@ -26,13 +26,18 @@ class RequestService extends BaseRequest {
   };
 
   createStudioSessions = async (payload: ICreateStudioSession) => {
-    return await this.api.post(API_ROUTES.CREATE_STUDIO_SESSIONS, payload);
+    return await this.merchantApi.post(
+      API_ROUTES.CREATE_STUDIO_SESSIONS,
+      payload
+    );
   };
   bookStudioSession = async (payload: IBookStudioSession) => {
     return await this.api.post(API_ROUTES.BOOK_A_STUDIO_SESSION, payload);
   };
-  retrieveSessionBookings = async () => {
-    return await this.api.get(API_ROUTES.RETRIEVE_SESSION_BOOKINGS);
+  retrieveSessionBookings = async (queries = "") => {
+    return await this.merchantApi.get(
+      `${API_ROUTES.RETRIEVE_SESSION_BOOKINGS}${queries}`
+    );
   };
   getStudioSessions = async (merchantId: string) => {
     return await this.api.get(

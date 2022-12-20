@@ -14,7 +14,7 @@ const Notification = (
     position: "right", // `left`, `center` or `right`
     stopOnFocus: true, // Prevents dismissing of toast on hover
     style: {
-      background: type === "success" ? "#2ecc71" : "#e74c3c",
+      background: type === "success" ? "#289f5a" : "#c5200e",
     },
     onClick: function () {}, // Callback after click
   }).showToast();

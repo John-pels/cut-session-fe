@@ -44,3 +44,23 @@ export const bookStudioSessionAction = async (
     formatErrorMessage(err, onError);
   }
 };
+
+export const retrieveSessionBookingsAction = async (
+  queries: string,
+  onSuccess: () => void,
+  onError: (msg: string) => void
+) => {
+  try {
+    const response = await requestService.retrieveSessionBookings(queries);
+    if (response.data) {
+      store.dispatch({
+        type: TYPES.RETRIEVE_SESSION_BOOKINGS,
+        payload: response.data.data,
+      });
+      onSuccess?.();
+    }
+  } catch (err) {
+    console.log(err);
+    formatErrorMessage(err, onError);
+  }
+};

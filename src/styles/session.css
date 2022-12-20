@@ -1,5 +1,6 @@
 .studio-session,
-.book-session {
+.book-session,
+.session__bookings {
   margin: 50px auto 0 auto;
   width: 100%;
   max-width: 900px;
@@ -34,6 +35,41 @@
 
 .book-session {
   max-width: 500px;
+}
+
+.session__bookings {
+  text-align: center;
+  overflow-x: auto;
+}
+.booking__table {
+  width: 100%;
+  border: 1px solid var(--gray-alt);
+  border-collapse: collapse;
+}
+
+.booking__table tr:hover td {
+  background: var(--gray-alt);
+  color: var(--white);
+  transition: all 0.3s;
+}
+.booking__table tr:nth-child(even) {
+  background: var(--even);
+}
+
+.booking__table th {
+  color: var(--white-alt);
+  padding: var(--spacing-xs);
+  background: var(--gray);
+}
+.booking__table td {
+  color: var(--gray);
+  padding: var(--spacing-xs);
+  border: 1px solid var(--input-border);
+  white-space: nowrap;
+}
+
+.booking__table #view {
+  cursor: pointer;
 }
 
 @media (max-width: 840px) {

@@ -21,6 +21,15 @@ class CreateStudioSession extends Component {
     Notification(msg, "error");
   }
 
+  handleGobackup() {
+    const backButton = document.querySelector(
+      "#back-to-studio"
+    ) as HTMLSpanElement;
+    backButton.addEventListener("click", () => {
+      window.location.replace("/merchant/session/retrieve");
+    });
+  }
+
   handleBookSession() {
     const form = document.querySelector("#form") as HTMLFormElement;
     const button = document.querySelector("#button") as HTMLButtonElement;
@@ -58,6 +67,7 @@ class CreateStudioSession extends Component {
   }
 
   methods() {
+    this.handleGobackup();
     this.handleBookSession();
   }
 
@@ -76,6 +86,9 @@ class CreateStudioSession extends Component {
       </a>
     </div>
     <div class="header__user-info">
+     <span class="header__username" id="back-to-studio">
+      My Sessions
+      </span>
       <span class="header__logout">
       <a href="/" data-url>Logout</a>
       </span>

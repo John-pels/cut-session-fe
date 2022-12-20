@@ -34,7 +34,7 @@
 
 .header__user-info {
   display: flex;
-  gap: 25px;
+  gap: 15px;
   color: var(--blue-violet);
   font-weight: 400;
   font-size: 1.25em;
@@ -44,7 +44,7 @@
   cursor: pointer;
 }
 
-.header__logout a {
+.header__user-info a {
   color: var(--blue-violet);
 }
 

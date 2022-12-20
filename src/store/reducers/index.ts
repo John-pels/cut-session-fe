@@ -2,26 +2,18 @@ import { legacy_createStore as createStore } from "redux";
 import { AppActions, State, TYPES } from "../types";
 
 const INITIAL_STATE: State = {
-  merchantId: "",
-  sessionId: "",
   sessions: [],
   studios: [],
+  sessionBookings: [],
 };
 
 const appReducer = (state: State = INITIAL_STATE, action: AppActions) => {
   console.group(state, action);
   switch (action.type) {
-    case TYPES.GET_MERCHANT_ID: {
+    case TYPES.RETRIEVE_SESSION_BOOKINGS: {
       return {
         ...state,
-        merchantId: action.payload,
-      };
-    }
-
-    case TYPES.GET_STUDIO_SESSION_ID: {
-      return {
-        ...state,
-        sessionId: action.payload,
+        sessionBookings: action.payload,
       };
     }
 

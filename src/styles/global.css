@@ -6,6 +6,7 @@
   --blue-violet: #6268bf;
   --white-alt: #ebffef;
   --gray: rgb(42, 40, 40);
+  --even: #f2f2f2;
   --gray-alt: rgb(101, 98, 98);
   --input-border: rgb(173, 168, 168);
   --border-radius: 6px;
@@ -112,11 +113,11 @@ label {
 /* Form Validation */
 
 .form__input-group.success input {
-  border-color: #2ecc71;
+  border-color: var(--success);
 }
 
 .form__input-group.error input {
-  border-color: #e74c3c;
+  border-color: var(--error);
 }
 
 .form__input-group small {
