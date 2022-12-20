@@ -72,6 +72,13 @@
   cursor: pointer;
 }
 
+.bookings_search-form {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: var(--spacing);
+}
+
 @media (max-width: 840px) {
   .studio-session {
     max-width: 100%;
@@ -95,6 +102,9 @@
   .book-session {
     max-width: 100%;
   }
+  .bookings_search-form {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 400px) {
@@ -103,5 +113,8 @@
   }
   .session__time {
     font-size: 0.7em;
+  }
+  .bookings_search-form {
+    grid-template-columns: 1fr;
   }
 }

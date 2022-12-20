@@ -60,6 +60,7 @@
   display: flex;
   flex-direction: column;
 }
+
 .form {
   margin-top: var(--spacing);
 }
@@ -68,7 +69,8 @@ label {
   color: var(--gray);
 }
 
-.form__input {
+.form__input,
+input[type="date"] {
   border: 1px solid var(--input-border);
   border-radius: var(--border-radius);
   padding: var(--spacing-xs);
@@ -90,6 +92,11 @@ label {
   cursor: pointer;
   transition: all 0.3s;
   margin: var(--spacing-xs) 0;
+}
+
+.no-margin {
+  margin: 0;
+  padding: 10px;
 }
 
 .form__btn-signin:disabled {

@@ -31,7 +31,9 @@ export type IMerchantSignUpPayload = {
   metadata?: Object;
 };
 
-export interface IUserSignUpPayload extends IMerchantSignUpPayload {
+type IMerchantFragment = Omit<IMerchantSignUpPayload, "cityOfOperation">;
+
+export interface IUserSignUpPayload extends IMerchantFragment {
   dob: string;
 }
 
