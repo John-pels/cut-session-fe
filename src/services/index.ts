@@ -18,6 +18,7 @@ class BaseRequest {
 
         if (token) {
           req.headers!.Authorization = `Bearer ${token}`;
+          req.headers!.Prefer = "code=200, dynamic=true";
         }
       } catch (error) {
         //Do nothing

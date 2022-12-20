@@ -4,24 +4,32 @@ import { rootElement } from "../scripts/router";
 import { getAllStudioSessionsAction } from "../store/actions/session";
 import { store } from "../store/reducers";
 import { filterDataByKeyAndValue } from "../utils/data";
+import { withAuth } from "../utils/withAuth";
 import Component from "./Component";
 
 export default class extends Component {
   constructor(params: Params) {
     super(params);
     this.setTitle("Cut Session | Studio Sessions");
-    console.log(params);
+    withAuth();
   }
-  isLoading = false;
 
   onSuccess() {}
   onError(msg: string) {
     Notification(msg, "error");
   }
 
+  handleGobackup() {
+    const backButton = document.querySelector(
+      "#back-to-studio"
+    ) as HTMLSpanElement;
+    backButton.addEventListener("click", () => {
+      window.location.replace("/dashboard");
+    });
+  }
+
   handleFetchStudioSessions() {
     try {
-      this.isLoading = true;
       getAllStudioSessionsAction(
         this.params.merchantId,
         this.onSuccess,
@@ -30,7 +38,6 @@ export default class extends Component {
     } catch (e) {
       console.log(e);
     } finally {
-      this.isLoading = false;
     }
   }
 
@@ -45,11 +52,10 @@ export default class extends Component {
       })
       .join("");
 
-    sessionGrid.innerHTML = this.isLoading
-      ? `<div>Loading...<div>`
-      : sessions.length === 0
-      ? `<p>No weeekday sessions available</p>`
-      : sessions;
+    sessionGrid.innerHTML =
+      sessions.length === 0
+        ? `<p>No weeekday sessions available</p>`
+        : sessions;
   }
 
   renderWeekEndSessions(studioSessions: Array<IStudioSessions>) {
@@ -64,11 +70,10 @@ export default class extends Component {
         </a>`;
       })
       .join("");
-    sessionGrid.innerHTML = this.isLoading
-      ? `<div>Loading...<div>`
-      : sessions.length === 0
-      ? `<div>No weekend sessions available</div>`
-      : sessions;
+    sessionGrid.innerHTML =
+      sessions.length === 0
+        ? `<div>No weekend sessions available</div>`
+        : sessions;
   }
 
   methods() {
@@ -84,8 +89,10 @@ export default class extends Component {
         "type",
         "weekDay"
       );
+
       this.renderWeekDaySessions(weekdaySessions);
       this.renderWeekEndSessions(weekendSessions);
+      this.handleGobackup();
     });
   }
 
@@ -104,7 +111,9 @@ export default class extends Component {
       </a>
     </div>
     <div class="header__user-info">
-      <span class="header__username">John_pels</span>
+      <span class="header__username" id="back-to-studio">
+      Studios
+      </span>
       <span class="header__logout">
       <a href="/" data-url>Logout</a>
       </span>
@@ -113,12 +122,12 @@ export default class extends Component {
 
    <section class="studio-session">
    <h2 class="session__title">Weekday Sessions</h2>
-   <div class="session__grid"></div>
+   <div class="session__grid"><p class="text-center">Loading...</p></div>
    </section>
 
    <section class="studio-session">
    <h2 class="session__title">Weekend Sessions</h2>
-   <div class="session__grid weekend-session"></div>
+   <div class="session__grid weekend-session"><p class="text-center">Loading...</p></div>
    </section>
   <section class="dashboard container-fluid">
      `;

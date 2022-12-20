@@ -10,7 +10,7 @@ export const saveToStorage = (
   return ls?.set(key, value);
 };
 
-export const getAccessToken = (key: string = "altStudent") => {
+export const getAccessToken = (key: string = "cs-user") => {
   const data = ls?.get(key);
   return data;
 };

@@ -4,6 +4,9 @@
   width: 100%;
   max-width: 900px;
 }
+#back-to-studio {
+  cursor: pointer;
+}
 
 .session__title,
 .book-session__title {
@@ -13,18 +16,20 @@
 .session__grid {
   display: grid;
   gap: 15px;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-flow: row;
   margin-top: 20px;
 }
 .session__grid a {
   color: var(--gray-alt);
-  background: var(--white-alt);
 }
 
 .session__time {
   padding: var(--spacing-sm);
   border: 0.5px solid var(--gray-alt);
   border-radius: var(--border-radius);
+  background: var(--white-alt);
+  height: 100%;
 }
 
 .book-session {

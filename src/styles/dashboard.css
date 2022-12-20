@@ -36,8 +36,8 @@
   display: flex;
   gap: 25px;
   color: var(--blue-violet);
-  font-weight: 500;
-  font-size: 1.5em;
+  font-weight: 400;
+  font-size: 1.25em;
 }
 
 .header__logout {
@@ -49,20 +49,20 @@
 }
 
 .dashboard__search {
-  max-width: 40%;
+  max-width: 60%;
   width: 100%;
   margin: 100px auto;
 }
 
 .dashboard__search--form {
   display: flex;
+  gap: 15px;
 }
 .dashboard__search--input {
   width: 80%;
   border: 1px solid var(--input-border);
-  border-top-left-radius: var(--border-radius);
-  border-bottom-left-radius: var(--border-radius);
-  padding: 15px;
+  border-radius: var(--border-radius);
+  padding: 12px;
   transition: all 0.3s;
 }
 .dashboard__search--input:focus {
@@ -74,10 +74,9 @@
   width: 20%;
   background: var(--blue-violet);
   color: var(--white-alt);
-  padding: 15px;
+  padding: 12px;
   border: none;
-  border-top-right-radius: var(--border-radius);
-  border-bottom-right-radius: var(--border-radius);
+  border-radius: var(--border-radius);
   cursor: pointer;
   transition: all 0.3s;
 }
@@ -90,11 +89,12 @@
   display: grid;
   gap: 30px;
   grid-template-columns: repeat(4, 1fr);
+  grid-auto-flow: row;
   padding-bottom: 50px;
 }
 
 .studio-grid__item {
-  height: 32vh;
+  height: 100%;
   transition: all 0.3s;
 }
 
@@ -116,6 +116,10 @@
   flex-direction: column;
   padding: var(--spacing-sm);
   color: var(--gray-alt);
+}
+.studio__content code {
+  word-break: break-all;
+  text-overflow: ellipsis;
 }
 
 .studio-image {
@@ -176,6 +180,10 @@
     margin: 50px auto;
   }
 
+  .dashboard__search--form {
+    flex-direction: column;
+  }
+
   .dashboard__search--input {
     width: 100%;
     padding: 10px;
@@ -185,6 +193,7 @@
   }
 
   .dashboard__search--btn {
+    width: 35%;
     font-size: 0.8em;
     padding: 10px;
     padding-left: 5px;
@@ -194,15 +203,19 @@
   .studio-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-
-  .studio-grid__item {
-    height: 35vh;
-  }
 }
 
 /* Small Mobile View */
 
 @media (max-width: 450px) {
+  .studio-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Extra Small Mobile View */
+
+@media (max-width: 380px) {
   .studio-grid {
     grid-template-columns: 1fr;
   }

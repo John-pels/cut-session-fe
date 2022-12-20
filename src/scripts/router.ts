@@ -61,7 +61,7 @@ const router = async () => {
     };
   }
 
-  const view = await new match.route.view(getParams(match));
+  const view = new match.route.view(getParams(match));
   return view.render();
 };
 

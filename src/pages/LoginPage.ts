@@ -11,40 +11,36 @@ export default class extends Component {
   }
 
   onSuccess() {
+    const button = document.querySelector("#button") as HTMLButtonElement;
+    button.textContent = "Sign in";
+    button.disabled = false;
     Notification("You're Logged In");
     navigateTo("/dashboard");
   }
   onError(msg: string) {
+    const button = document.querySelector("#button") as HTMLButtonElement;
+    button.textContent = "Sign in";
+    button.disabled = false;
     Notification(msg, "error");
   }
 
   handleLogin() {
     const form = document.querySelector("#form") as HTMLFormElement;
-    const button = document.querySelector("#button") as HTMLButtonElement;
     const username = document.querySelector("#username") as HTMLInputElement;
     const password = document.querySelector("#password") as HTMLInputElement;
-
+    const button = document.querySelector("#button") as HTMLButtonElement;
     const callback = (event: Event) => {
       event.preventDefault();
       const usernameValue = username.value;
       const passwordValue = password.value;
-
       const payload: ISignInPayload = {
         username: usernameValue,
         password: passwordValue,
         accessType: "USER",
       };
-
-      try {
-        button.textContent = "Signing in...";
-        button.disabled = true;
-        loginAction(payload, this.onSuccess, this.onError);
-      } catch (e) {
-        console.log(e);
-      } finally {
-        button.textContent = "Sign in";
-        button.disabled = false;
-      }
+      button.textContent = "Signinig in....";
+      button.disabled = true;
+      loginAction(payload, this.onSuccess, this.onError);
     };
     form.addEventListener("submit", callback);
   }

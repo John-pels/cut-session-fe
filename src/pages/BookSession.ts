@@ -3,11 +3,13 @@ import { Notification } from "../scripts/notification";
 import { navigateTo, rootElement } from "../scripts/router";
 import { bookStudioSessionAction } from "../store/actions/session";
 import { getAccessToken } from "../utils/storage";
+import { withAuth } from "../utils/withAuth";
 import Component from "./Component.js";
 
 export default class extends Component {
   constructor(params: Params) {
     super(params);
+    withAuth();
     this.setTitle("Cut Session | Book A Session");
   }
 
@@ -42,13 +44,13 @@ export default class extends Component {
       };
 
       try {
-        button.textContent = "Signing in...";
+        button.textContent = "Please wait...";
         button.disabled = true;
         bookStudioSessionAction(payload, this.onSuccess, this.onError);
       } catch (e) {
         console.log(e);
       } finally {
-        button.textContent = "Sign in";
+        button.textContent = "Book Session";
         button.disabled = false;
       }
     };
@@ -74,7 +76,6 @@ export default class extends Component {
       </a>
     </div>
     <div class="header__user-info">
-      <span class="header__username">John_pels</span>
       <span class="header__logout">
       <a href="/" data-url>Logout</a>
       </span>

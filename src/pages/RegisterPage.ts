@@ -10,11 +10,17 @@ export default class extends Component {
   }
 
   onSuccess() {
+    const button = document.querySelector("#button") as HTMLButtonElement;
+    button.textContent = "Create Account";
+    button.disabled = false;
     Notification("Your registration is succesful, kindly Sign in to continue");
     navigateTo("/");
   }
 
   onError(msg: string) {
+    const button = document.querySelector("#button") as HTMLButtonElement;
+    button.textContent = "Create Account";
+    button.disabled = true;
     Notification(msg, "error");
   }
 
@@ -40,14 +46,9 @@ export default class extends Component {
         dob: dobValue,
         name: nameValue,
       };
-      try {
-        button.textContent = "please wait...";
-        registerAction(payload, this.onSuccess, this.onError);
-      } catch (e) {
-        console.log(e);
-      } finally {
-        button.textContent = "Create Account";
-      }
+      button.textContent = "please wait...";
+      button.disabled = true;
+      registerAction(payload, this.onSuccess, this.onError);
     };
 
     form.addEventListener("submit", callback);

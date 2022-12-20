@@ -15,6 +15,12 @@
   --error: #e74c3c;
   --success: #2ecc71;
 }
+.text-center {
+  text-align: center;
+}
+.placeholder {
+  display: none;
+}
 
 .flex {
   display: flex;
