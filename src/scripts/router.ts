@@ -5,6 +5,10 @@ import PageNotFound from "../pages/404";
 import StudioSessions from "../pages/StudioSessions";
 import BookSession from "../pages/BookSession";
 import Component from "../pages/Component";
+import MerchantLogin from "../pages/merchant/Login";
+import MerchantRegister from "../pages/merchant/Register";
+import CreateStudioSession from "../pages/merchant/CreateSession";
+import RetrieveSessionsBookings from "../pages/merchant/RetrieveSession";
 
 const rootElement = document.querySelector("#root") as HTMLElement;
 
@@ -39,6 +43,13 @@ const router = async () => {
     { path: "/dashboard", view: Dashboard },
     { path: "/dashboard/studio/:merchantId", view: StudioSessions },
     { path: "/dashboard/book/:sessionId", view: BookSession },
+
+    //Merchant routes
+    { path: "/merchant/login", view: MerchantLogin },
+    { path: "/merchant/register", view: MerchantRegister },
+    { path: "/merchant/session/create", view: CreateStudioSession },
+    { path: "/merchant/session/retrieve", view: RetrieveSessionsBookings },
+
     { path: "/*", view: PageNotFound },
   ];
 

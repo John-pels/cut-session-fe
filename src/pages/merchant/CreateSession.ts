@@ -1,12 +1,12 @@
-import { IBookStudioSession } from "../@types";
-import { Notification } from "../scripts/notification";
-import { navigateTo, rootElement } from "../scripts/router";
-import { bookStudioSessionAction } from "../store/actions/session";
-import { getAccessToken } from "../utils/storage";
-import { withAuth } from "../utils/withAuth";
-import Component from "./Component";
+import { IBookStudioSession } from "../../@types";
+import { Notification } from "../../scripts/notification";
+import { navigateTo, rootElement } from "../../scripts/router";
+import { bookStudioSessionAction } from "../../store/actions/session";
+import { getAccessToken } from "../../utils/storage";
+import { withAuth } from "../../utils/withAuth";
+import Component from "../Component";
 
-export default class extends Component {
+class CreateStudioSession extends Component {
   constructor(params: Params) {
     super(params);
     withAuth();
@@ -131,3 +131,5 @@ export default class extends Component {
     this.methods();
   }
 }
+
+export default CreateStudioSession;

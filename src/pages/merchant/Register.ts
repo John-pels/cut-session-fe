@@ -1,9 +1,9 @@
-import { IUserSignUpPayload } from "../@types";
-import { Notification } from "../scripts/notification";
-import { navigateTo, rootElement } from "../scripts/router";
-import { registerAction } from "../store/actions/auth";
-import Component from "./Component";
-export default class extends Component {
+import { IUserSignUpPayload } from "../../@types";
+import { Notification } from "../../scripts/notification";
+import { navigateTo, rootElement } from "../../scripts/router";
+import { registerAction } from "../../store/actions/auth";
+import Component from "../Component";
+class MerchantRegister extends Component {
   constructor(params: Params) {
     super(params);
     this.setTitle("Cut Session | Sign-Up");
@@ -66,7 +66,7 @@ export default class extends Component {
       <div class="brand">
         <img src="/cut-session.svg" alt="brand logo" class="brand__logo" />
       </div>
-      <h2 class="heading">Create an account</h2>
+      <h2 class="heading">Create a Merchant account</h2>
       <form class="form" id="form">
         <div class="form__input-group">
           <label for="name">Full Name</label>
@@ -136,7 +136,7 @@ export default class extends Component {
         </div>
         <button class="form__btn-signin" id="button">Create Account</button>
         <p class="form__footer-text">
-          Already have an account? Sign in <a href="/" data-url>here</a>
+          Already have an account? Sign in <a href="/merchant/login" data-url>here</a>
         </p>
       </form>
     </div>
@@ -150,3 +150,5 @@ export default class extends Component {
     this.methods();
   }
 }
+
+export default MerchantRegister;
