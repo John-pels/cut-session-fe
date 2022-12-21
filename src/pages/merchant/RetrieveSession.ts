@@ -31,6 +31,49 @@ class RetrieveSessionsBookings extends Component {
     Notification(msg, "error");
   }
 
+  handleShowModal(allBookings: Array<ISessionBookings>) {
+    const modalBtn = document.querySelectorAll(
+      "#view"
+    ) as unknown as Array<HTMLTableCellElement>;
+    const modal = document.querySelector(".modal") as HTMLDivElement;
+    const modalContent = document.querySelector(
+      ".modal__content"
+    ) as HTMLDivElement;
+    modalBtn.forEach((element, index) => {
+      const {
+        bookingRef,
+        title,
+        notes,
+        sessionId,
+        userId,
+        startsAt,
+        endsAt,
+        date,
+      } = allBookings[index];
+      element.addEventListener("click", () => {
+        modal.style.display = "block";
+        modalContent.innerHTML = `
+        <h2 class="modal__title">Bookings Details - Ref: ${bookingRef}</h2>
+       <code><b>Title:</b> ${title}</code>
+       <code><b>Notes:</b> ${notes}</code>
+      <code><b>Created At:</b> ${new Date(date).toDateString()}</code>
+      <code><b>Start Date:</b> ${startsAt}</code>
+      <code><b>End Date:</b> ${endsAt}</code>
+      <code><b>Session Id:</b> ${sessionId}</code>
+      <code><b>User Id:</b> ${userId}</code>`;
+        document.body.style.overflowY = "hidden";
+        console.log("you there?", allBookings[index]);
+      });
+    });
+
+    window.onclick = (event: Event) => {
+      if (event.target === modal) {
+        modal.style.display = "none";
+        document.body.style.overflowY = "auto";
+      }
+    };
+  }
+
   handleSearchSessionBookings() {
     const form = document.querySelector(
       ".bookings_search-form"
@@ -50,7 +93,6 @@ class RetrieveSessionsBookings extends Component {
     const singleDateLabel = document.querySelector(
       "#single-date"
     ) as HTMLLabelElement;
-    console.log(period.value);
     singleDateLabel.textContent = "Date:";
     endDateGroup.style.display = "none";
     endDateGroup.style.display = "none";
@@ -110,18 +152,17 @@ class RetrieveSessionsBookings extends Component {
     const allBookings = document.querySelector(
       ".session__bookings"
     ) as HTMLElement;
-
     const tableRow = bookings
-      .map(({ date, bookingId, startsAt, endsAt }, index) => {
+      .map((booking, index) => {
         return `
         <tr>
         <td>${index + 1}</td>
-        <td>${new Date(date).toLocaleDateString()}</td>
-        <td>${bookingId}</td>
-        <td>${startsAt}</td>
-        <td>${endsAt}</td>
-        <td id="view">View</td>
-   </tr>`;
+        <td>${new Date(booking.date).toLocaleDateString()}</td>
+        <td>${booking.bookingId}</td>
+        <td>${booking.startsAt}</td>
+        <td>${booking.endsAt}</td>
+        <td id="view" class="view">View</td>
+       </tr>`;
       })
       .join("");
 
@@ -147,6 +188,8 @@ class RetrieveSessionsBookings extends Component {
       bookings.length === 0
         ? `<div class="text-center">No session bookings available</div>`
         : tableData;
+
+    this.handleShowModal(bookings);
   }
 
   methods() {
@@ -241,6 +284,10 @@ class RetrieveSessionsBookings extends Component {
    <div class="session__bookings">
    ${this.loader}
    </div>
+   </section>
+
+   <section class="modal">
+   <div class="modal__content"></div>
    </section>
   <section class="dashboard container-fluid">
      `;

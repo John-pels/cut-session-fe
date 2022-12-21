@@ -136,6 +136,39 @@ input[type="date"] {
   visibility: visible;
 }
 
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 200px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal__content {
+  display: flex;
+  flex-direction: column;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 15px;
+  border: 1px solid var(--gray-alt);
+  border-radius: var(--border-radius);
+  width: 40%;
+}
+.modal__title {
+  text-align: center;
+  color: var(--gray-alt);
+  margin-bottom: var(--spacing);
+}
+
+.modal__content code {
+  color: var(--gray);
+  line-height: 2;
+}
+
 /* Responsive container */
 .container {
   width: 100%;
@@ -147,4 +180,25 @@ input[type="date"] {
   width: 100%;
   max-width: 1300px;
   margin: 0 auto;
+}
+
+@media (max-width: 1024px) {
+  .modal__content {
+    width: 60%;
+  }
+}
+
+@media (max-width: 840px) {
+  .modal__content {
+    width: 70%;
+  }
+
+  @media (max-width: 600px) {
+    .modal__content {
+      width: 90%;
+    }
+    .modal__content code {
+      line-height: 1.5;
+    }
+  }
 }

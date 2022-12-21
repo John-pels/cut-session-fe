@@ -79,6 +79,14 @@
   margin-top: var(--spacing);
 }
 
+#view {
+  color: var(--blue-violet);
+}
+
+#view:hover {
+  color: var(--white-alt);
+}
+
 @media (max-width: 840px) {
   .studio-session {
     max-width: 100%;
