@@ -1,7 +1,7 @@
-import { IBookStudioSession } from "../../@types";
+import { ICreateStudioSession } from "../../@types";
 import { Notification } from "../../scripts/notification";
 import { navigateTo, rootElement } from "../../scripts/router";
-import { bookStudioSessionAction } from "../../store/actions/session";
+import { createStudioSessionAction } from "../../store/actions/session";
 import { getAccessToken } from "../../utils/storage";
 import { withAuth } from "../../utils/withAuth";
 import Component from "../Component";
@@ -14,10 +14,16 @@ class CreateStudioSession extends Component {
   }
 
   onSuccess() {
+    const button = document.querySelector("#button") as HTMLButtonElement;
+    button.textContent = "Create Session";
+    button.disabled = false;
     Notification("You're Logged In");
-    navigateTo("/dashboard");
+    navigateTo("/merchant/dahboard");
   }
   onError(msg: string) {
+    const button = document.querySelector("#button") as HTMLButtonElement;
+    button.textContent = "Create Session";
+    button.disabled = false;
     Notification(msg, "error");
   }
 
@@ -33,35 +39,41 @@ class CreateStudioSession extends Component {
   handleBookSession() {
     const form = document.querySelector("#form") as HTMLFormElement;
     const button = document.querySelector("#button") as HTMLButtonElement;
-    const title = document.querySelector("#title") as HTMLInputElement;
-    const date = document.querySelector("#date") as HTMLInputElement;
-    const notes = document.querySelector("#notes") as HTMLTextAreaElement;
+    const startsAt = document.querySelector("#startsAt") as HTMLInputElement;
+    const endsAt = document.querySelector("#endsAt") as HTMLInputElement;
+    const sessionType = document.querySelector("#type") as HTMLTextAreaElement;
+
+    startsAt.addEventListener("change", () => {
+      console.log("starts At", startsAt.value);
+    });
+    endsAt.addEventListener("change", () => {
+      console.log("ends At", endsAt.value);
+    });
+    sessionType.addEventListener("change", () => {
+      console.log("type", sessionType.value);
+    });
 
     const callback = (event: Event) => {
       event.preventDefault();
-      const titleValue = title.value;
-      const dateValue = date.value;
-      const notesValue = notes.value;
-      const { userId } = getAccessToken("cs-user");
+      button.textContent = "Creating...";
+      button.disabled = true;
+      const startsAtValue = startsAt.value.trim().toLowerCase();
+      const endsAtValue = endsAt.value.trim().toLowerCase();
+      const typeValue = sessionType.value.trim();
+      const { merchantId } = getAccessToken("cs-merchant");
 
-      const payload: IBookStudioSession = {
-        title: titleValue,
-        date: dateValue,
-        notes: notesValue,
-        sessionId: this.params.sessionId,
-        userId: `${userId}${userId}str`,
+      const payload: ICreateStudioSession = {
+        startsAt: startsAtValue,
+        endsAt: endsAtValue,
+        type: typeValue,
       };
-
-      try {
-        button.textContent = "Please wait...";
-        button.disabled = true;
-        bookStudioSessionAction(payload, this.onSuccess, this.onError);
-      } catch (e) {
-        console.log(e);
-      } finally {
-        button.textContent = "Book Session";
-        button.disabled = false;
-      }
+      console.log("payload", { ...payload, merchantId });
+      createStudioSessionAction(
+        payload,
+        merchantId,
+        this.onSuccess,
+        this.onError
+      );
     };
     form.addEventListener("submit", callback);
   }
@@ -95,44 +107,45 @@ class CreateStudioSession extends Component {
     </div>
    </header>
    <section class="book-session box">
-   <h2 class="book-session__title">Book a Session</h2>
+   <h2 class="book-session__title">Create a Session</h2>
    <form class="form" id="form">
       <div class="form__input-group mb">
-        <label for="title">Title </label>
+        <label for="title">Starts At </label>
         <input
-          type="text"
+          type="time"
           class="form__input"
-          name="title"
-          id="title"
-          placeholder="Family Session"
-          data-title
+          name="startsAt"
+          id="startsAt"
+          placeholder=""
+          data-startsAt
           required
         />
       </div>
        <div class="form__input-group mb">
-          <label for="date">Date</label>
+          <label for="date">Ends At</label>
           <input
-            type="date"
+            type="time"
             class="form__input"
-            name="date"
-            id="date"
-            data-date
+            name="endsAt"
+            id="endsAt"
+            data-endsAt
             required
           />
         </div>
       <div class="form__input-group mb">
-        <label for="notes">Notes</label>
-        <textarea
-          type="text"
-          rows="5"
+        <label for="notes">Type</label>
+        <select
           class="form__input"
-          name="notes"
-          id="notes"
-          data-notes
+          name="type"
+          id="type"
+          data-type
          required
-        ></textarea>
+        >
+        <option value="WeekDay">WeekDay</option>
+        <option value="WeekEnd">WeekEnd</option>
+        </select>
       </div>
-      <button class="form__btn-signin" id="button">Book Session</button>
+      <button class="form__btn-signin" id="button">Create Session</button>
     </form>
    </section>
    <section class="dashboard container-fluid">

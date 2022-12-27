@@ -79,12 +79,13 @@
   margin-top: var(--spacing);
 }
 
-#view {
-  color: var(--blue-violet);
-}
-
-#view:hover {
+#view span {
+  background: var(--blue-violet);
   color: var(--white-alt);
+  padding: 8px;
+  margin-bottom: 3px;
+  display: block;
+  border-radius: var(--border-radius);
 }
 
 @media (max-width: 840px) {

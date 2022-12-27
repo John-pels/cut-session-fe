@@ -21,6 +21,7 @@
     "vite": "^4.0.0"
   },
   "dependencies": {
+    "date-fns": "^2.29.3",
     "redux": "^4.2.0",
     "toastify-js": "^1.12.0"
   }

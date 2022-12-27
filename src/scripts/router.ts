@@ -48,7 +48,7 @@ const router = async () => {
     { path: "/merchant/login", view: MerchantLogin },
     { path: "/merchant/register", view: MerchantRegister },
     { path: "/merchant/session/create", view: CreateStudioSession },
-    { path: "/merchant/session/retrieve", view: RetrieveSessionsBookings },
+    { path: "/merchant/dashboard", view: RetrieveSessionsBookings },
 
     { path: "/*", view: PageNotFound },
   ];

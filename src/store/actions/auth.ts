@@ -45,15 +45,13 @@ export const loginAction = async (
   try {
     const response = await requestService.userSignIn(payload);
     console.log(response.data);
-    const userId: string = response.data.userId;
     const token: string = response.data.token;
     if (response.data && !isMerchant) {
-      saveToStorage("cs-user", { token, userId });
+      saveToStorage("cs-user", { token, userId: token });
       onSuccess?.();
     }
     if (response.data && isMerchant) {
-      const merchantId: string = response.data.merchantId;
-      saveToStorage("cs-merchant", { token, merchantId });
+      saveToStorage("cs-merchant", { token, merchantId: token });
       onSuccess?.();
     }
   } catch (err) {

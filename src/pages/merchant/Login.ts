@@ -15,7 +15,7 @@ class MerchantLogin extends Component {
     button.textContent = "Sign in";
     button.disabled = false;
     Notification("You're Logged In");
-    navigateTo("/merchant/session/retrieve");
+    navigateTo("/merchant/dashboard");
   }
   onError(msg: string) {
     const button = document.querySelector("#button") as HTMLButtonElement;

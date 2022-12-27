@@ -350,3 +350,6 @@ template {
 [hidden] {
   display: none;
 }
+input {
+  width: 100%;
+}

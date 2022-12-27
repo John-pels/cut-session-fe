@@ -62,7 +62,6 @@ class RetrieveSessionsBookings extends Component {
       <code><b>Session Id:</b> ${sessionId}</code>
       <code><b>User Id:</b> ${userId}</code>`;
         document.body.style.overflowY = "hidden";
-        console.log("you there?", allBookings[index]);
       });
     });
 
@@ -161,7 +160,7 @@ class RetrieveSessionsBookings extends Component {
         <td>${booking.bookingId}</td>
         <td>${booking.startsAt}</td>
         <td>${booking.endsAt}</td>
-        <td id="view" class="view">View</td>
+        <td id="view" class="view"><span>View</span></td>
        </tr>`;
       })
       .join("");

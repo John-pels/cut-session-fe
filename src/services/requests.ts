@@ -25,9 +25,12 @@ class RequestService extends BaseRequest {
     return await this.api.get(`${API_ROUTES.GET_CLIENTS}${queries}`);
   };
 
-  createStudioSessions = async (payload: ICreateStudioSession) => {
+  createStudioSessions = async (
+    payload: ICreateStudioSession,
+    merchantId: string
+  ) => {
     return await this.merchantApi.post(
-      API_ROUTES.CREATE_STUDIO_SESSIONS,
+      `${API_ROUTES.CREATE_STUDIO_SESSIONS}/${merchantId}`,
       payload
     );
   };
