@@ -1,4 +1,4 @@
-export class SessionWidget {
+class SessionWidget {
   position;
   open;
   calendarIcon;
@@ -30,12 +30,12 @@ export class SessionWidget {
     buttonContainer.classList.add("button-container");
 
     const calendarIcon = document.createElement("img");
-    calendarIcon.src = "/calendar.svg";
+    calendarIcon.src = "./assets/calendar.svg";
     calendarIcon.classList.add("icon");
     this.calendarIcon = calendarIcon;
 
     const closeIcon = document.createElement("img");
-    closeIcon.src = "/cross.svg";
+    closeIcon.src = "./assets/cross.svg";
     closeIcon.classList.add("icon", "hidden");
     this.closeIcon = closeIcon;
 
@@ -144,14 +144,11 @@ export class SessionWidget {
                 display: flex;
                 background-color: #ebffef;
                 flex-direction: column;
-
             }
-
               h4 {
               color:rgb(101, 98, 98);
               margin: 10px;
                 }
-
             .grid {
               display:grid;
               grid-template-columns: repeat(2,1fr);
@@ -166,17 +163,14 @@ export class SessionWidget {
               padding: 5px;
               cursor:pointer;
             }
-
             @media (max-width: 400px) {
                .grid {
                grid-template-columns: 1fr;
                }
-
                 .widget-container h2  {
                   font-size:1.2em;
                   padding: 15px 15px;
                 }
-
                .widget-container {
                 max-height: 650px;
                 width: 310px;
@@ -201,3 +195,5 @@ export class SessionWidget {
     }
   }
 }
+
+const sessionWidget = new SessionWidget({ position: "bottom-right" });
