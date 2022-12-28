@@ -1,9 +1,9 @@
 export class SessionWidget {
-  position: { [key: string]: string };
-  open: boolean;
-  calendarIcon!: HTMLImageElement;
-  closeIcon!: HTMLImageElement;
-  widgetContainer!: HTMLDivElement;
+  position;
+  open;
+  calendarIcon;
+  closeIcon;
+  widgetContainer;
 
   constructor({ position = "bottom-right" }) {
     this.position = this.getPosition(position);
@@ -11,7 +11,7 @@ export class SessionWidget {
     this.initialize();
     this.createStyles();
   }
-  getPosition(position: string) {
+  getPosition(position) {
     const [vertical, horizontal] = position.split("-");
     return {
       [vertical]: "30px",
@@ -19,22 +19,22 @@ export class SessionWidget {
     };
   }
   initialize() {
-    const container = document.createElement("div") as HTMLDivElement;
+    const container = document.createElement("div");
     container.style.position = "fixed";
     Object.keys(this.position).forEach(
-      (key: any) => (container.style[key] = this.position[key])
+      (key) => (container.style[key] = this.position[key])
     );
     document.body.appendChild(container);
 
-    const buttonContainer = document.createElement("div") as HTMLDivElement;
+    const buttonContainer = document.createElement("div");
     buttonContainer.classList.add("button-container");
 
-    const calendarIcon = document.createElement("img") as HTMLImageElement;
+    const calendarIcon = document.createElement("img");
     calendarIcon.src = "/calendar.svg";
     calendarIcon.classList.add("icon");
     this.calendarIcon = calendarIcon;
 
-    const closeIcon = document.createElement("img") as HTMLImageElement;
+    const closeIcon = document.createElement("img");
     closeIcon.src = "/cross.svg";
     closeIcon.classList.add("icon", "hidden");
     this.closeIcon = closeIcon;
@@ -43,7 +43,7 @@ export class SessionWidget {
     buttonContainer.appendChild(this.closeIcon);
     buttonContainer.addEventListener("click", this.toggleOpen.bind(this));
 
-    this.widgetContainer = document.createElement("div") as HTMLDivElement;
+    this.widgetContainer = document.createElement("div");
     this.widgetContainer.classList.add("hidden", "widget-container");
 
     this.createWidgetContainerContent();
@@ -55,15 +55,15 @@ export class SessionWidget {
   createWidgetContainerContent() {
     const data = [...new Array(5)];
     this.widgetContainer.innerHTML = "";
-    const title = document.createElement("h2") as HTMLHeadingElement;
+    const title = document.createElement("h2");
     title.textContent = `Book a Session with us here`;
 
-    const weekDayGrid = document.createElement("div") as HTMLDivElement;
-    const weekEndGrid = document.createElement("div") as HTMLDivElement;
+    const weekDayGrid = document.createElement("div");
+    const weekEndGrid = document.createElement("div");
     weekDayGrid.classList.add("grid");
     weekEndGrid.classList.add("grid");
-    const weekDayTitle = document.createElement("h4") as HTMLHeadingElement;
-    const weekEndTitle = document.createElement("h4") as HTMLHeadingElement;
+    const weekDayTitle = document.createElement("h4");
+    const weekEndTitle = document.createElement("h4");
     weekDayTitle.textContent = `Weekday Sessions`;
     weekEndTitle.textContent = `Weekend Sessions`;
 
@@ -94,7 +94,7 @@ export class SessionWidget {
   }
 
   createStyles() {
-    const styleTag = document.createElement("style") as HTMLStyleElement;
+    const styleTag = document.createElement("style");
     styleTag.innerHTML = `
     @import url("https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800&family=Poppins:wght@100;200;300;400;500;600;700&display=swap");
               * {
