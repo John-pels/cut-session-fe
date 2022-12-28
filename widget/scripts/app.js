@@ -11,6 +11,9 @@ class SessionWidget {
     this.initialize();
     this.createStyles();
   }
+
+  URL = `https://stoplight.io/mocks/pipeline/pipelinev2-projects/111233856/studios`;
+
   getPosition(position) {
     const [vertical, horizontal] = position.split("-");
     return {
@@ -52,8 +55,7 @@ class SessionWidget {
     container.appendChild(buttonContainer);
   }
 
-  createWidgetContainerContent() {
-    const data = [...new Array(5)];
+  async createWidgetContainerContent() {
     this.widgetContainer.innerHTML = "";
     const title = document.createElement("h2");
     title.textContent = `Book a Session with us here`;
@@ -67,12 +69,27 @@ class SessionWidget {
     weekDayTitle.textContent = `Weekday Sessions`;
     weekEndTitle.textContent = `Weekend Sessions`;
 
+    const widgetScript = document.querySelector("[data-widget]");
+    const merchantId = widgetScript.getAttribute("data-merchantId");
+    const response = await fetch(`${this.URL}/${merchantId}`, {
+      headers: {
+        prefer: "code=200, dynamic=true",
+      },
+    });
+    const jsonData = await response.json();
+
     const renderWeekDaySessions = () => {
-      const sessions = data
-        .map((_, index) => {
+      const weekdaySessions = this.filterDataByKeyAndValue(
+        jsonData,
+        "type",
+        "weekDay"
+      );
+      console.log("weekday sessions", weekdaySessions);
+      const sessions = weekdaySessions
+        ?.map((session) => {
           return `
-        <a href="/dashboard/book/3495lsjdfdfnsdslksasd" key="${index}" class="grid-item" target="__blank">
-         14:35:00ZZ - 18:50:20ZZ
+        <a href="${window.location.origin}/dashboard/book/${session.id}" key="${session.id}" class="grid-item" target="__blank">
+       ${session.startsAt} - ${session.endsAt}
         </a>
       `;
         })
@@ -82,11 +99,17 @@ class SessionWidget {
     };
 
     const renderWeekEndSessions = () => {
-      const sessions = data
-        .map((_, index) => {
+      const weekendSessions = this.filterDataByKeyAndValue(
+        jsonData,
+        "type",
+        "weekEnd"
+      );
+      console.log("weekend sessions", weekendSessions);
+      const sessions = weekendSessions
+        ?.map((session) => {
           return `
-        <a href="/dashboard/book/3495lsjdfdfnsdslksasd" key="${index}" class="grid-item" target="__blank">
-         14:35:00ZZ - 18:50:20ZZ
+        <a href="${window.location.origin}/dashboard/book/${session.id}" key="${session.id}" class="grid-item" target="__blank">
+       ${session.startsAt} - ${session.endsAt}
         </a>
       `;
         })
@@ -133,7 +156,7 @@ class SessionWidget {
                 background-color: #fff;
                 box-shadow: 0 0 18px 8px rgba(0, 0, 0, 0.1), 0 0 32px 32px rgba(0, 0, 0, 0.08);
                 border-radius: 5px;
-                width: 400px;
+                width: 430px;
                 right: -15px;
                 bottom: 75px;
                 max-height: 500px;
@@ -176,6 +199,7 @@ class SessionWidget {
               background: #ebffef;
               text-decoration: none;
               color:rgb(101, 98, 98);
+              font-size: 0.8em;
               padding: 5px;
               cursor:pointer;
             }
@@ -189,9 +213,16 @@ class SessionWidget {
                 }
                .widget-container {
                 max-height: 650px;
-                width: 310px;
+                width: 300px;
                }
             }
+
+             @media (max-width: 450px) {
+                .widget-container {
+                max-height: 600px;
+                width: 400px;
+               }
+             }
             
     `.replace(/^\s+|\n/gm, "");
     document.head.appendChild(styleTag);
@@ -210,6 +241,13 @@ class SessionWidget {
       this.widgetContainer.classList.add("hidden");
     }
   }
+
+  filterDataByKeyAndValue = (data, key, value) => {
+    const result = data?.filter(
+      (item) => item[key].toLowerCase() === value.toLowerCase()
+    );
+    return result;
+  };
 }
 
 const sessionWidget = new SessionWidget({ position: "bottom-right" });
