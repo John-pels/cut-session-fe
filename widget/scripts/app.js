@@ -30,12 +30,12 @@ class SessionWidget {
     buttonContainer.classList.add("button-container");
 
     const calendarIcon = document.createElement("img");
-    calendarIcon.src = "./assets/calendar.svg";
+    calendarIcon.src = "./widget/assets/calendar.svg";
     calendarIcon.classList.add("icon");
     this.calendarIcon = calendarIcon;
 
     const closeIcon = document.createElement("img");
-    closeIcon.src = "./assets/cross.svg";
+    closeIcon.src = "./widget/assets/cross.svg";
     closeIcon.classList.add("icon", "hidden");
     this.closeIcon = closeIcon;
 
@@ -118,6 +118,7 @@ class SessionWidget {
                 border-radius: 50%;
             }
             .widget-container {
+                background-color: #fff;
                 box-shadow: 0 0 18px 8px rgba(0, 0, 0, 0.1), 0 0 32px 32px rgba(0, 0, 0, 0.08);
                 width: 400px;
                 right: -25px;
