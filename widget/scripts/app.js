@@ -30,12 +30,12 @@ class SessionWidget {
     buttonContainer.classList.add("button-container");
 
     const calendarIcon = document.createElement("img");
-    calendarIcon.src = "./widget/assets/calendar.svg";
+    calendarIcon.src = "/widget/assets/calendar.svg";
     calendarIcon.classList.add("icon");
     this.calendarIcon = calendarIcon;
 
     const closeIcon = document.createElement("img");
-    closeIcon.src = "./widget/assets/cross.svg";
+    closeIcon.src = "/widget/assets/cross.svg";
     closeIcon.classList.add("icon", "hidden");
     this.closeIcon = closeIcon;
 
