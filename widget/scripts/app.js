@@ -159,7 +159,7 @@ class SessionWidget {
                 width: 430px;
                 right: -15px;
                 bottom: 75px;
-                max-height: 500px;
+                max-height: 600px;
                 overflow-y:scroll;
                 position: absolute;
                 transition: max-height .2s ease-in-out;
@@ -203,6 +203,16 @@ class SessionWidget {
               padding: 5px;
               cursor:pointer;
             }
+
+
+             @media (max-width: 450px) {
+                .widget-container {
+                max-height: 600px;
+                width: 400px;
+               }
+             }
+
+
             @media (max-width: 400px) {
                .grid {
                grid-template-columns: 1fr;
@@ -217,12 +227,7 @@ class SessionWidget {
                }
             }
 
-             @media (max-width: 450px) {
-                .widget-container {
-                max-height: 600px;
-                width: 400px;
-               }
-             }
+            
             
     `.replace(/^\s+|\n/gm, "");
     document.head.appendChild(styleTag);

@@ -9,7 +9,7 @@ import Component from "../Component";
 class CreateStudioSession extends Component {
   constructor(params: Params) {
     super(params);
-    withAuth();
+    withAuth("cs-merchant");
     this.setTitle("Cut Session | Book A Session");
   }
 

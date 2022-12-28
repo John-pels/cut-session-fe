@@ -10,8 +10,14 @@
 }
 
 .session__title,
-.book-session__title {
+.book-session__title,
+h5,
+p {
   color: var(--gray-alt);
+}
+
+h5 {
+  margin-bottom: 5px;
 }
 
 .session__grid {
@@ -76,7 +82,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-  margin-top: var(--spacing);
+  margin-top: var(--spacing-xs);
 }
 
 #view span {
@@ -86,6 +92,26 @@
   margin-bottom: 3px;
   display: block;
   border-radius: var(--border-radius);
+}
+
+.widget-script {
+  display: flex;
+  gap: 15px;
+  border: 1px solid var(--input-border);
+  border-radius: 20px;
+  padding: var(--spacing-xs);
+  margin-top: var(--spacing-sm);
+}
+
+#copy-text {
+  cursor: pointer;
+  color: var(--gray);
+}
+
+#widget-copy-input {
+  border: none;
+  font-weight: 600;
+  color: var(--gray-alt);
 }
 
 @media (max-width: 840px) {

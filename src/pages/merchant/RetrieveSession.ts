@@ -14,6 +14,7 @@ class RetrieveSessionsBookings extends Component {
   }
   defaultQuery = `?limit=50&offset=1&`;
   loader = `<p class="text-center">Loading...</p>`;
+  widgetScript = `<script src=“https://rawcdn.githack.com/.../app.js” data-merchantId=“<YOUR_MERCHANT_ID>” data-widget></script>`;
 
   onSuccess() {
     const button = document.querySelector("#search-btn") as HTMLButtonElement;
@@ -191,8 +192,21 @@ class RetrieveSessionsBookings extends Component {
     this.handleShowModal(bookings);
   }
 
+  copyWidgetCodeToClipboard() {
+    const button = document.querySelector("#copy-text") as HTMLSpanElement;
+    const input = document.querySelector(
+      "#widget-copy-input"
+    ) as HTMLInputElement;
+
+    button?.addEventListener("click", () => {
+      navigator.clipboard.writeText(input.value);
+      Notification("Code copied to clipboard!", "success");
+    });
+  }
+
   methods() {
     this.handleFetchSessionBookings();
+    this.copyWidgetCodeToClipboard();
     store.subscribe(() => {
       const state = store.getState();
       this.renderSessionBookings(state.sessionBookings);
@@ -224,6 +238,13 @@ class RetrieveSessionsBookings extends Component {
 
    <section class="studio-session">
    <h2 class="session__title">My Session Bookings</h2>
+   <h5>Embeddable Widget:</h5>
+   <p>Copy the script below and paste before the closing tag of the html document body to add to your website:</p>
+    <div class="widget-script">
+   <input type="text" value="${this.widgetScript}" id="widget-copy-input"/>
+    <span id="copy-text">Copy</span>
+    </div>
+   <h5>Search bookings by:</h5>
    <form class="bookings_search-form">
        <div class="form__input-group">
         <label for="password">Name or Id:</label>
