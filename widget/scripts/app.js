@@ -67,24 +67,36 @@ class SessionWidget {
     weekDayTitle.textContent = `Weekday Sessions`;
     weekEndTitle.textContent = `Weekend Sessions`;
 
-    const renderWeekDaySessions = data
-      .map((_, index) => {
-        return `
-      <div class="grid-item" key="${index}">14:35:00ZZ - 18:50:20ZZ</div>
+    const renderWeekDaySessions = () => {
+      const sessions = data
+        .map((_, index) => {
+          return `
+        <a href="/dashboard/book/3495lsjdfdfnsdslksasd" key="${index}" class="grid-item" target="__blank">
+         14:35:00ZZ - 18:50:20ZZ
+        </a>
       `;
-      })
-      .join("");
+        })
+        .join("");
 
-    const renderWeekEndSessions = data
-      .map((_, index) => {
-        return `
-      <div class="grid-item" key="${index}">14:35:00ZZ - 18:50:20ZZ</div>
+      weekDayGrid.innerHTML = sessions;
+    };
+
+    const renderWeekEndSessions = () => {
+      const sessions = data
+        .map((_, index) => {
+          return `
+        <a href="/dashboard/book/3495lsjdfdfnsdslksasd" key="${index}" class="grid-item" target="__blank">
+         14:35:00ZZ - 18:50:20ZZ
+        </a>
       `;
-      })
-      .join("");
+        })
+        .join("");
 
-    weekDayGrid.innerHTML = renderWeekDaySessions;
-    weekEndGrid.innerHTML = renderWeekEndSessions;
+      weekEndGrid.innerHTML = sessions;
+    };
+
+    renderWeekDaySessions();
+    renderWeekEndSessions();
 
     this.widgetContainer.appendChild(title);
     this.widgetContainer.appendChild(weekDayTitle);
@@ -120,8 +132,9 @@ class SessionWidget {
             .widget-container {
                 background-color: #fff;
                 box-shadow: 0 0 18px 8px rgba(0, 0, 0, 0.1), 0 0 32px 32px rgba(0, 0, 0, 0.08);
+                border-radius: 5px;
                 width: 400px;
-                right: -25px;
+                right: -15px;
                 bottom: 75px;
                 max-height: 500px;
                 overflow-y:scroll;
@@ -161,6 +174,8 @@ class SessionWidget {
               border: 0.5px solid rgb(101, 98, 98);
               border-radius: 5px;
               background: #ebffef;
+              text-decoration: none;
+              color:rgb(101, 98, 98);
               padding: 5px;
               cursor:pointer;
             }
