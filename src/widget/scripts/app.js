@@ -1,3 +1,6 @@
+import CalendarIcon from "../assets/calendar.svg";
+import CloseIcon from "../assets/cross.svg";
+
 class SessionWidget {
   position;
   open;
@@ -33,12 +36,12 @@ class SessionWidget {
     buttonContainer.classList.add("button-container");
 
     const calendarIcon = document.createElement("img");
-    calendarIcon.src = "/widget/assets/calendar.svg";
+    calendarIcon.src = "/calendar.svg";
     calendarIcon.classList.add("icon");
     this.calendarIcon = calendarIcon;
 
     const closeIcon = document.createElement("img");
-    closeIcon.src = "/widget/assets/cross.svg";
+    closeIcon.src = "/cross.svg";
     closeIcon.classList.add("icon", "hidden");
     this.closeIcon = closeIcon;
 
@@ -84,7 +87,6 @@ class SessionWidget {
         "type",
         "weekDay"
       );
-      console.log("weekday sessions", weekdaySessions);
       const sessions = weekdaySessions
         ?.map((session) => {
           return `
@@ -104,7 +106,6 @@ class SessionWidget {
         "type",
         "weekEnd"
       );
-      console.log("weekend sessions", weekendSessions);
       const sessions = weekendSessions
         ?.map((session) => {
           return `
@@ -203,8 +204,7 @@ class SessionWidget {
               padding: 5px;
               cursor:pointer;
             }
-
-
+            
              @media (max-width: 450px) {
                 .widget-container {
                 max-height: 600px;
@@ -225,10 +225,7 @@ class SessionWidget {
                 max-height: 650px;
                 width: 300px;
                }
-            }
-
-            
-            
+            }      
     `.replace(/^\s+|\n/gm, "");
     document.head.appendChild(styleTag);
   }
