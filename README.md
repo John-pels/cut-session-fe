@@ -18,7 +18,7 @@ A Single Page Application with an Embeddable Widget built using Vite, Vanilla HT
 >
 > - yarn install or npm run install
 > - yarn dev or npm run dev
-> - open your browser and type [localhost](http://127.0.0.1:5173/) into the address bar
+> - open your browser and type [http://127.0.0.1:5173/](http://127.0.0.1:5173/) into the address bar
 
 > #### To run a production build
 >
