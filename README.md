@@ -2,7 +2,7 @@
 
 A Single Page Application with an Embeddable Widget built using Vite, Vanilla HTML & CSS, TypeScript, Redux, REST API, and Toastify.
 
-## Live URL: [link](https://cut-sessions.netlify.app/){:target="\_blank" rel="noopener"}
+## Live URL: [link](https://cut-sessions.netlify.app/)
 
 > **Technologies used:**
 >
