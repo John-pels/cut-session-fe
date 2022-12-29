@@ -1,6 +1,3 @@
-import CalendarIcon from "../assets/calendar.svg";
-import CloseIcon from "../assets/cross.svg";
-
 class SessionWidget {
   position;
   open;
