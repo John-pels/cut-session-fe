@@ -2,7 +2,7 @@
 
 A Single Page Application with an Embeddable Widget built using Vite, Vanilla HTML & CSS, TypeScript, Redux, REST API, and Toastify.
 
-## Live URL: [link](https://cut-sessions.netlify.app/)
+## Live URL: [link](https://cut-sessions.netlify.app/){:target="\_blank" rel="noopener"}
 
 > **Technologies used:**
 >
@@ -18,6 +18,7 @@ A Single Page Application with an Embeddable Widget built using Vite, Vanilla HT
 >
 > - yarn install or npm run install
 > - yarn dev or npm run dev
+> - open your browser and type [localhost](http://127.0.0.1:5173/) into the address bar
 
 > #### To run a production build
 >
