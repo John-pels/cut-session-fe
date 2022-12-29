@@ -4,7 +4,7 @@ A Single Page Application with an Embeddable Widget built using Vite, Vanilla HT
 
 ## Live URL: [link](https://cut-sessions.netlify.app/)
 
-> **Technology tools:**
+> **Technologies used:**
 >
 > - HTML
 > - CSS
@@ -27,15 +27,15 @@ A Single Page Application with an Embeddable Widget built using Vite, Vanilla HT
 >
 > ### User routes:
 >
-> - _/_ is where users will get to login
-> - _/register_ is where users will get to create an account
-> - _/dashboard_ is where users will get to see all available studios or merchants
-> - _/dashboard/studio/:merchantId_ is where users will get to see all sessions for the selected studio screen
-> - _/dashboard/studio/:merchantId_ is where users will get to book a studio session
+> - [/](https://cut-sessions.netlify.app/) is where users will get to login
+> - [/register](https://cut-sessions.netlify.app/register) is where users will get to create an account
+> - [/dashboard](https://cut-sessions.netlify.app/dashboard) is where users will get to see all available studios or merchants
+> - [/dashboard/studio/:merchantId](https://cut-sessions.netlify.app/dashboard/studio/83fjdcndscksncsis485sjccid) is where users will get to see all sessions for the selected studio screen
+> - [/dashboard/book/:sessionId](https://cut-sessions.netlify.app/dashboard/book/83fjdcndscksncsis485sjccid) is where users will get to book a studio session
 >
 > ### Merchant/Studio routes:
 >
-> - _/merchant/login_ is where merchants will get to login
-> - _/merchant/register_ is where merchants will get to create an account
-> - _/merchant/dashboard_ is where merchants will get to see their sessions, embeddable widget code, and also search options
-> - _/merchant/session/create_ is where merchants will get to create a studio session
+> - [/merchant/login](https://cut-sessions.netlify.app/merchant/login) is where merchants will get to login
+> - [/merchant/register](https://cut-sessions.netlify.app/merchant/register) is where merchants will get to create an account
+> - [/merchant/dashboard](https://cut-sessions.netlify.app/merchant/dashboard) is where merchants will get to see their sessions, embeddable widget code, and also search options
+> - [/merchant/session/create](https://cut-sessions.netlify.app/merchant/session/create) is where merchants will get to create a studio session
