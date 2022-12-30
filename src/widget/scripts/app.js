@@ -34,11 +34,13 @@ class SessionWidget {
 
     const calendarIcon = document.createElement("img");
     calendarIcon.src = "/calendar.svg";
+    calendarIcon.setAttribute("alt", "calender-icon");
     calendarIcon.classList.add("icon");
     this.calendarIcon = calendarIcon;
 
     const closeIcon = document.createElement("img");
     closeIcon.src = "/cross.svg";
+    calendarIcon.setAttribute("alt", "cross-icon");
     closeIcon.classList.add("icon", "hidden");
     this.closeIcon = closeIcon;
 

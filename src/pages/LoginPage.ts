@@ -54,7 +54,13 @@ export default class extends Component {
     <div class="flex">
     <div class="auth-content box">
     <div class="brand">
-      <img src="/cut-session.svg" alt="brand logo" class="brand__logo" />
+      <img 
+      src="/cut-session.svg"
+       alt="brand logo"
+        class="brand__logo"
+        width=""
+        height=""
+      />
     </div>
     <h2 class="heading">Sign in to continue</h2>
     <form class="form" id="form">
@@ -88,7 +94,7 @@ export default class extends Component {
       </div>
       <button class="form__btn-signin" id="button">Sign in</button>
       <p class="form__footer-text">
-        Don't have an account yet? Create <a href="/register" data-url>here</a>
+        Don't have an account yet? <a href="/register" data-url>Create here</a>
       </p>
     </form>
   </div>

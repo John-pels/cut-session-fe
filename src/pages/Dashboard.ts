@@ -102,6 +102,8 @@ class Dashboard extends Component {
             src="/studio_image.jpg"
             alt="studio Image"
             class="studio-image"
+               width="100%"
+               height="100%"
           />
         </div>  
           <div class="studio__content">
@@ -149,6 +151,8 @@ class Dashboard extends Component {
           src="/cut-session.svg"
           alt="brand logo"
           class="header__brand--logo"
+          width="100%"
+          height="100%"
         />
         <span>Cut Session</span>
       </a>

@@ -6,7 +6,7 @@ import { store } from "../../store/reducers";
 import { withAuth } from "../../utils/withAuth";
 import Component from "../Component";
 
-class RetrieveSessionsBookings extends Component {
+class MerchantDashboard extends Component {
   constructor(params: Params) {
     super(params);
     this.setTitle("Cut Session | Studio Sessions");
@@ -219,11 +219,13 @@ class RetrieveSessionsBookings extends Component {
     <section class="dashboard container-fluid">
     <header class="header">
     <div class="header__brand">
-      <a href="/dashboard">
+      <a href="/merchant/dashboard">
         <img
           src="/cut-session.svg"
           alt="brand logo"
           class="header__brand--logo"
+          width="100%"
+          height="100%"
         />
         <span>Cut Session</span>
       </a>
@@ -271,6 +273,7 @@ class RetrieveSessionsBookings extends Component {
       <div class="form__input-group">
         <label for="password">Period:</label>
         <select class="form__input" name="period" id="period">
+        <option disabled selected>select</option>
         <option value="single">Single</option>
         <option value="double">Double</option>
         </select>
@@ -319,4 +322,4 @@ class RetrieveSessionsBookings extends Component {
   }
 }
 
-export default RetrieveSessionsBookings;
+export default MerchantDashboard;

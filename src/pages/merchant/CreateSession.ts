@@ -3,22 +3,37 @@ import { Notification } from "../../scripts/notification";
 import { navigateTo, rootElement } from "../../scripts/router";
 import { createStudioSessionAction } from "../../store/actions/session";
 import { getAccessToken } from "../../utils/storage";
+import { validateTime, validateTimeSlot } from "../../utils/timeSlotValidation";
 import { withAuth } from "../../utils/withAuth";
 import Component from "../Component";
 
 class CreateStudioSession extends Component {
+  isFormValidated: boolean;
   constructor(params: Params) {
     super(params);
     withAuth("cs-merchant");
     this.setTitle("Cut Session | Book A Session");
+    this.isFormValidated = false;
+  }
+
+  handleDisplayErrorMessage(formControl: HTMLElement, message: string) {
+    const small = formControl.querySelector("small") as HTMLElement;
+    if (message) {
+      formControl.className = "form__input-group error";
+      small.innerText = message;
+      this.isFormValidated = false;
+    } else {
+      formControl.className = "form__input-group";
+      this.isFormValidated = true;
+    }
   }
 
   onSuccess() {
     const button = document.querySelector("#button") as HTMLButtonElement;
     button.textContent = "Create Session";
     button.disabled = false;
-    Notification("You're Logged In");
-    navigateTo("/merchant/dahboard");
+    Notification("Studio session created successfully!");
+    navigateTo("/merchant/dashboard");
   }
   onError(msg: string) {
     const button = document.querySelector("#button") as HTMLButtonElement;
@@ -32,25 +47,50 @@ class CreateStudioSession extends Component {
       "#back-to-studio"
     ) as HTMLSpanElement;
     backButton.addEventListener("click", () => {
-      window.location.replace("/merchant/session/retrieve");
+      window.location.replace("/merchant/dashboard");
     });
   }
 
-  handleBookSession() {
+  handleCreateSession() {
     const form = document.querySelector("#form") as HTMLFormElement;
     const button = document.querySelector("#button") as HTMLButtonElement;
     const startsAt = document.querySelector("#startsAt") as HTMLInputElement;
     const endsAt = document.querySelector("#endsAt") as HTMLInputElement;
-    const sessionType = document.querySelector("#type") as HTMLTextAreaElement;
+    const sessionType = document.querySelector("#type") as HTMLSelectElement;
+    const timeSlot = document.querySelector("#time_slot") as HTMLSelectElement;
+    button.disabled = true;
 
     startsAt.addEventListener("change", () => {
-      console.log("starts At", startsAt.value);
+      const formControl = startsAt.parentElement as HTMLElement;
+      const message = validateTime(startsAt.value, sessionType.value);
+      this.handleDisplayErrorMessage(formControl, message);
+      console.log("validation", this.isFormValidated);
     });
     endsAt.addEventListener("change", () => {
-      console.log("ends At", endsAt.value);
+      const formControl = endsAt.parentElement as HTMLElement;
+      const message = validateTime(endsAt.value, sessionType.value);
+      this.handleDisplayErrorMessage(formControl, message);
+      console.log("validation", this.isFormValidated);
     });
-    sessionType.addEventListener("change", () => {
-      console.log("type", sessionType.value);
+
+    timeSlot.addEventListener("change", () => {
+      const formControl = timeSlot.parentElement as HTMLElement;
+      const message = validateTimeSlot(
+        startsAt.value,
+        endsAt.value,
+        timeSlot.value
+      );
+      this.handleDisplayErrorMessage(formControl, message);
+      console.log("validation", this.isFormValidated);
+    });
+
+    form.addEventListener("change", () => {
+      if (this.isFormValidated) {
+        console.log("Hey it's true");
+        button.disabled = false;
+      } else {
+        button.disabled = true;
+      }
     });
 
     const callback = (event: Event) => {
@@ -63,14 +103,14 @@ class CreateStudioSession extends Component {
       const { merchantId } = getAccessToken("cs-merchant");
 
       const payload: ICreateStudioSession = {
-        startsAt: startsAtValue,
-        endsAt: endsAtValue,
+        startsAt: `${startsAtValue}:00`,
+        endsAt: `${endsAtValue}:00`,
         type: typeValue,
       };
-      console.log("payload", { ...payload, merchantId });
+
       createStudioSessionAction(
         payload,
-        merchantId,
+        `${merchantId}stringstring`,
         this.onSuccess,
         this.onError
       );
@@ -80,7 +120,7 @@ class CreateStudioSession extends Component {
 
   methods() {
     this.handleGobackup();
-    this.handleBookSession();
+    this.handleCreateSession();
   }
 
   getHtml() {
@@ -88,11 +128,13 @@ class CreateStudioSession extends Component {
     <section class="dashboard container-fluid">
     <header class="header">
     <div class="header__brand">
-      <a href="/dashboard">
+      <a href="/merchant/dashboard">
         <img
           src="/cut-session.svg"
           alt="brand logo"
           class="header__brand--logo"
+             width="100%"
+          height="100%"
         />
         <span>Cut Session</span>
       </a>
@@ -109,31 +151,8 @@ class CreateStudioSession extends Component {
    <section class="book-session box">
    <h2 class="book-session__title">Create a Session</h2>
    <form class="form" id="form">
-      <div class="form__input-group mb">
-        <label for="title">Starts At </label>
-        <input
-          type="time"
-          class="form__input"
-          name="startsAt"
-          id="startsAt"
-          placeholder=""
-          data-startsAt
-          required
-        />
-      </div>
-       <div class="form__input-group mb">
-          <label for="date">Ends At</label>
-          <input
-            type="time"
-            class="form__input"
-            name="endsAt"
-            id="endsAt"
-            data-endsAt
-            required
-          />
-        </div>
-      <div class="form__input-group mb">
-        <label for="notes">Type</label>
+     <div class="form__input-group">
+        <label for="type">Type</label>
         <select
           class="form__input"
           name="type"
@@ -144,6 +163,48 @@ class CreateStudioSession extends Component {
         <option value="WeekDay">WeekDay</option>
         <option value="WeekEnd">WeekEnd</option>
         </select>
+        <small>Error message</small>
+      </div>
+      <div class="form__input-group">
+        <label for="startsAt">Starts At </label>
+        <input
+          type="time"
+          class="form__input"
+          name="startsAt"
+          id="startsAt"
+          placeholder=""
+          data-startsAt
+          required
+        />
+        <small>Error message</small>
+      </div>
+       <div class="form__input-group">
+          <label for="endsAt">Ends At</label>
+          <input
+            type="time"
+            class="form__input"
+            name="endsAt"
+            id="endsAt"
+            data-endsAt
+            required
+          />
+        <small>Error message</small>
+        </div>
+         <div class="form__input-group">
+        <label for="time_slot">Time Slot</label>
+        <select
+          class="form__input"
+          name="time_slot"
+          id="time_slot"
+          data-time_slot
+         required
+        >
+        <option disabled selected>select</option>
+        <option value="45">45 minutes</option>
+        <option value="60">60 minutes</option>
+        <option value="90">90 minutes</option>
+        </select>
+        <small>Error message</small>
       </div>
       <button class="form__btn-signin" id="button">Create Session</button>
     </form>

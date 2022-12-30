@@ -54,7 +54,11 @@ class MerchantLogin extends Component {
     <div class="flex">
     <div class="auth-content box">
     <div class="brand">
-      <img src="/cut-session.svg" alt="brand logo" class="brand__logo" />
+      <img 
+      src="/cut-session.svg"
+       alt="brand logo"
+        class="brand__logo"
+         />
     </div>
     <h2 class="heading">Sign in to your Merchant account</h2>
     <form class="form" id="form">

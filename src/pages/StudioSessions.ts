@@ -106,6 +106,8 @@ export default class extends Component {
           src="/cut-session.svg"
           alt="brand logo"
           class="header__brand--logo"
+             width="100%"
+          height="100%"
         />
         <span>Cut Session</span>
       </a>

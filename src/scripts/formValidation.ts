@@ -79,10 +79,4 @@ const formValidation = (isLogin = false) => {
   });
 };
 
-// const isFormValidated = (isLogin:boolean, elements:Array<HTMLElement>) => {
-//   if (isLogin) {
-// if(elem)
-// }
-// }
-
 export { formValidation };

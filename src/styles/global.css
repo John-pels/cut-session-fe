@@ -119,12 +119,16 @@ input[type="date"] {
 
 /* Form Validation */
 
-.form__input-group.success input {
+.form__input-group.success input,
+.form__input-group.success select {
   border-color: var(--success);
+  transition: all 0.3s ease;
 }
 
-.form__input-group.error input {
+.form__input-group.error input,
+.form__input-group.error select {
   border-color: var(--error);
+  transition: all 0.3s ease;
 }
 
 .form__input-group small {

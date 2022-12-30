@@ -67,7 +67,13 @@ class MerchantRegister extends Component {
     <div class="flex">
     <div class="auth-content box">
       <div class="brand">
-        <img src="/cut-session.svg" alt="brand logo" class="brand__logo" />
+        <img 
+        src="/cut-session.svg"
+         alt="brand logo"
+          class="brand__logo"
+          width=""
+          height=""
+           />
       </div>
       <h2 class="heading">Create a Merchant account</h2>
       <form class="form" id="form">

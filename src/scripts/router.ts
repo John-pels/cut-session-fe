@@ -8,7 +8,7 @@ import Component from "../pages/Component";
 import MerchantLogin from "../pages/merchant/Login";
 import MerchantRegister from "../pages/merchant/Register";
 import CreateStudioSession from "../pages/merchant/CreateSession";
-import RetrieveSessionsBookings from "../pages/merchant/RetrieveSession";
+import MerchantDashboard from "../pages/merchant/Dashboard";
 
 const rootElement = document.querySelector("#root") as HTMLElement;
 
@@ -48,7 +48,7 @@ const router = async () => {
     { path: "/merchant/login", view: MerchantLogin },
     { path: "/merchant/register", view: MerchantRegister },
     { path: "/merchant/session/create", view: CreateStudioSession },
-    { path: "/merchant/dashboard", view: RetrieveSessionsBookings },
+    { path: "/merchant/dashboard", view: MerchantDashboard },
 
     { path: "/*", view: PageNotFound },
   ];
